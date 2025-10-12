@@ -1,40 +1,73 @@
-import { addHomeContent } from "./home";
-import { addMenuContent } from "./menu";
-import { addContactContent } from "./contact";
-import "./style.css";
+const TodoModule = (function () {
+   const projectList = [];
 
-addHomeContent();
+   const addProject = (title, description) =>
+      projectList.push(createProject(title, description));
 
-const homeButton = document.querySelector("#home");
-const menuButton = document.querySelector("#menu");
-const contactButton = document.querySelector("#contact");
+   const getProjects = () =>
+      projectList.forEach(item => {
+         console.log(item);
+      });
 
-homeButton.classList.add("active");
+   function createProject(title, description) {
+      let todoList = [];
+      let privateTitle = title;
+      let privateDescription = description;
 
-let homeActive = true;
-let menuActive = false;
-let contactActive = false;
+      const addNewTodo = (title, description, dueDate, priority) => {
+         todoList.push(createTodo(title, description, dueDate, priority));
+      };
 
-homeButton.addEventListener("click", () => {
-   addHomeContent();
+      const removeTodo = index => todoList.splice(index, 1);
+      const getTodoList = () => todoList;
+      const getTitle = () => privateTitle;
+      const getDesc = () => privateDescription;
+      const setTitle = newTitle => (privateTitle = newTitle);
+      const setDesc = newDescription => (privateDescription = newDescription);
 
-   homeButton.classList.add("active");
-   menuButton.classList.remove("active");
-   contactButton.classList.remove("active");
-});
+      return {
+         getTitle,
+         getDesc,
+         setTitle,
+         setDesc,
+         addNewTodo,
+         removeTodo,
+         getTodoList,
+      };
+   }
 
-menuButton.addEventListener("click", () => {
-   addMenuContent();
+   function createTodo(title, description, dueDate, priority) {
+      let privateTitle = title;
+      let privateDescription = description;
+      let privateDueDate = dueDate;
+      let privatePriority = priority;
+      let isComplete = false;
 
-   menuButton.classList.add("active");
-   homeButton.classList.remove("active");
-   contactButton.classList.remove("active");
-});
+      const getTitle = () => privateTitle;
+      const getDesc = () => privateDescription;
+      const getDate = () => privateDueDate;
+      const getPrio = () => privatePriority;
+      const getCompStatus = () => isComplete;
 
-contactButton.addEventListener("click", () => {
-   addContactContent();
+      const setTitle = newTitle => (privateTitle = newTitle);
+      const setDesc = newDescription => (privateDescription = newDescription);
+      const setDate = newDueDate => (privateDueDate = newDueDate);
+      const setPrio = newPriority => (privatePriority = newPriority);
+      const toggleCompStatus = () => (isComplete = !isComplete);
 
-   contactButton.classList.add("active");
-   homeButton.classList.remove("active");
-   menuButton.classList.remove("active");
-});
+      return {
+         getTitle,
+         getDesc,
+         getDate,
+         getPrio,
+         getCompStatus,
+         setTitle,
+         setDesc,
+         setDate,
+         setPrio,
+         toggleCompStatus,
+      };
+   }
+
+   return { addProject, getProjects };
+})();
