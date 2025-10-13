@@ -1,73 +1,50 @@
+import createProject from './project.js'
+
 const TodoModule = (function () {
    const projectList = [];
 
-   const addProject = (title, description) =>
-      projectList.push(createProject(title, description));
+   const addProject = (title, description) => {
+      const project = createProject(title, description);
+      projectList.push(project);
+      saveData();
+      return project;
+   };
 
-   const getProjects = () =>
-      projectList.forEach(item => {
-         console.log(item);
+   const getProjects = () => projectList;
+
+   const saveData = () => {
+      localStorage.setItem("todoProjectList", JSON.stringify(projectList));
+   };
+
+   const loadData = () => {
+      const storedData = JSON.parse(localStorage.getItem("todoProjectList"));
+      if (storedData) {
+         rehydrateProjects(storedData);
+      }
+   };
+
+   const rehydrateProjects = projects => {
+      projects.forEach(project => {
+         addProject(project.title, project.description)
+         project.todoList.forEach(todo => {
+            project.addNewTodo(todo)
+         });
       });
+   };
 
-   function createProject(title, description) {
-      let todoList = [];
-      let privateTitle = title;
-      let privateDescription = description;
+   // const rehydrateTodos = todos => {
+   //    todos.forEach(todo => {
+   //       createTodo(todo.title, todo.description, todo.dueDate, todo.priority);
+   //    });
+   // };
 
-      const addNewTodo = (title, description, dueDate, priority) => {
-         todoList.push(createTodo(title, description, dueDate, priority));
-      };
-
-      const removeTodo = index => todoList.splice(index, 1);
-      const getTodoList = () => todoList;
-      const getTitle = () => privateTitle;
-      const getDesc = () => privateDescription;
-      const setTitle = newTitle => (privateTitle = newTitle);
-      const setDesc = newDescription => (privateDescription = newDescription);
-
-      return {
-         getTitle,
-         getDesc,
-         setTitle,
-         setDesc,
-         addNewTodo,
-         removeTodo,
-         getTodoList,
-      };
-   }
-
-   function createTodo(title, description, dueDate, priority) {
-      let privateTitle = title;
-      let privateDescription = description;
-      let privateDueDate = dueDate;
-      let privatePriority = priority;
-      let isComplete = false;
-
-      const getTitle = () => privateTitle;
-      const getDesc = () => privateDescription;
-      const getDate = () => privateDueDate;
-      const getPrio = () => privatePriority;
-      const getCompStatus = () => isComplete;
-
-      const setTitle = newTitle => (privateTitle = newTitle);
-      const setDesc = newDescription => (privateDescription = newDescription);
-      const setDate = newDueDate => (privateDueDate = newDueDate);
-      const setPrio = newPriority => (privatePriority = newPriority);
-      const toggleCompStatus = () => (isComplete = !isComplete);
-
-      return {
-         getTitle,
-         getDesc,
-         getDate,
-         getPrio,
-         getCompStatus,
-         setTitle,
-         setDesc,
-         setDate,
-         setPrio,
-         toggleCompStatus,
-      };
-   }
+   
+   (function init() {
+      loadData();
+      if (projectList.length === 0) {
+         addProject("Default Project", "Your first project!");
+      }
+   })();
 
    return { addProject, getProjects };
 })();
