@@ -4,6 +4,122 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>TO-DO OR NOT TO-DO</title>
+      <link rel="stylesheet" href="style.css" />
    </head>
-   <body></body>
+   <body>
+      <nav id="sidebar">
+         <ul>
+            <li>
+               <span class="logo">zeddycodes</span>
+               <button onclick=toggleSidebar() id="toggle-btn">
+                  <img
+                     src="./images/menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+               </button>
+            </li>
+            <li class="active">
+               <a href="index.html">
+                  <img
+                     src="./images/home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+                  <span>Home</span>
+               </a>
+            </li>
+            <li>
+               <a href="dashboard.html">
+                  <img
+                     src="./images/dashboard_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+                  <span>Today</span>
+               </a>
+            </li>
+            <li>
+               <a href="calender.html">
+                  <img
+                     src="./images/calendar_month_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+                  <span>Upcoming</span>
+               </a>
+            </li>
+            <li>
+               <button onclick=toggleSubMenu(this) class="dropdown-btn">
+                  <img
+                     src="./images/create_new_folder_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+                  <span>Projects</span>
+                  <img
+                     src="./images/arrow_drop_down_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+               </button>
+               <ul class="sub-menu">
+                  <div>
+                     <li><a href="#">Folder</a></li>
+                     <li><a href="#">Document</a></li>
+                     <li><a href="#">Project</a></li>
+                  </div>
+               </ul>
+            </li>
+            <li>
+               <button onclick=toggleSubMenu(this) class="dropdown-btn">
+                  <img
+                     src="./images/checklist_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+                  <span>Todo-Lists</span>
+                  <img
+                     src="./images/arrow_drop_down_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+               </button>
+               <ul class="sub-menu">
+                  <div>
+                     <li><a href="#">Work</a></li>
+                     <li><a href="#">Private</a></li>
+                     <li><a href="#">Coding</a></li>
+                  </div>
+               </ul>
+            </li>
+            <li>
+               <a href="profile.html">
+                  <img
+                     src="./images/account_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+                  <span>Profile</span>
+               </a>
+            </li>
+         </ul>
+      </nav>
+
+      <main>
+         <div class="container">
+            <h2>Hello World</h2>
+            <p>
+               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore,
+               sed, vitae minima reprehenderit illum, quo id architecto eum
+               saepe dolores aspernatur inventore porro earum dolorum facilis
+               quas sapiente nemo ipsa?
+            </p>
+         </div>
+         <div class="container">
+            <h2>Hello World</h2>
+            <p>
+               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore,
+               sed, vitae minima reprehenderit illum, quo id architecto eum
+               saepe dolores aspernatur inventore porro earum dolorum facilis
+               quas sapiente nemo ipsa? Lorem ipsum dolor sit, amet consectetur
+               adipisicing elit. Eos ipsam impedit minus dolorum earum vero
+               consequatur reprehenderit explicabo rem, accusamus officia,
+               reiciendis laboriosam autem laudantium. At dicta voluptas id
+               reprehenderit.
+            </p>
+         </div>
+         <div class="container">
+            <h2>Hello World</h2>
+            <p>
+               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore,
+               sed, vitae minima reprehenderit illum, quo id architecto eum
+               saepe dolores aspernatur inventore porro earum dolorum facilis
+               quas sapiente nemo ipsa? Lorem ipsum dolor sit amet consectetur
+               adipisicing elit. Vero iusto odit veniam maiores culpa
+               perspiciatis quod nisi delectus suscipit consequuntur molestiae
+               ducimus, labore, ratione consectetur rerum tempore omnis, ad
+               eligendi? Lorem ipsum dolor sit amet consectetur adipisicing
+               elit. Distinctio odio cum fugiat cupiditate corrupti
+               exercitationem sunt incidunt dolorem similique vel officia, dolor
+               facilis consectetur accusamus a beatae laudantium quam laborum!
+            </p>
+         </div>
+      </main>
+      <div id="content"></div>
+      <script src="./index.js"></script>
+   </body>
 </html>
