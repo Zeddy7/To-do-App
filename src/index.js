@@ -1,50 +1,65 @@
-import createProject from './project.js'
+import createProject from "./project.js";
+import createTodo from "./todo.js";
 
-const TodoModule = (function () {
-   const projectList = [];
+const TodoManager = (function () {
+  let projectList = [];
+  const STORAGE_KEY = "todoProjects";
 
-   const addProject = (title, description) => {
-      const project = createProject(title, description);
-      projectList.push(project);
-      saveData();
-      return project;
-   };
+  const saveToStorage = () => {
+    const dataToSave = projectList.map(project => project.toJSON());
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+  };
 
-   const getProjects = () => projectList;
+  const rehydrateProject = (parsedProject) => {
+    const rehydratedTodos = parsedProject.todos.map(parsedTodo => 
+      createTodo(
+        parsedTodo.title,
+        parsedTodo.description,
+        parsedTodo.dueDate,
+        parsedTodo.priority,
+        parsedTodo.isComplete,
+        saveToStorage
+      )
+    );
+    return createProject(
+      parsedProject.title,
+      parsedProject.description,
+      rehydratedTodos,
+      saveToStorage
+    );
+  };
 
-   const saveData = () => {
-      localStorage.setItem("todoProjectList", JSON.stringify(projectList));
-   };
-
-   const loadData = () => {
-      const storedData = JSON.parse(localStorage.getItem("todoProjectList"));
+  const loadFromStorage = () => {
+    try {
+      const storedData = localStorage.getItem(STORAGE_KEY);
       if (storedData) {
-         rehydrateProjects(storedData);
+        const parsedData = JSON.parse(storedData);
+        if (parsedData) {
+          projectList = parsedData.map(rehydrateProject);
+        }
       }
-   };
+    } catch (e) {
+      console.error("Error loading from local storage:", e);
+    }
+  };
 
-   const rehydrateProjects = projects => {
-      projects.forEach(project => {
-         addProject(project.title, project.description)
-         project.todoList.forEach(todo => {
-            project.addNewTodo(todo)
-         });
-      });
-   };
+  const addProject = (title, description) => {
+    const newProject = createProject(title, description, [], saveToStorage);
+    projectList.push(newProject);
+    saveToStorage();
+    return newProject;
+  };
 
-   // const rehydrateTodos = todos => {
-   //    todos.forEach(todo => {
-   //       createTodo(todo.title, todo.description, todo.dueDate, todo.priority);
-   //    });
-   // };
+  const getProjects = () => projectList;
 
-   
-   (function init() {
-      loadData();
-      if (projectList.length === 0) {
-         addProject("Default Project", "Your first project!");
-      }
-   })();
+  (function init() {
+    loadFromStorage();
+    if (projectList.length === 0) {
+      addProject("Default Project", "Your first project!");
+    }
+  })();
 
-   return { addProject, getProjects };
+  return { addProject, getProjects };
 })();
+
+export default TodoManager;

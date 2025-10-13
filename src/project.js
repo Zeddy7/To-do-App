@@ -1,33 +1,50 @@
-import createTodo from './todo.js'
+import createTodo from "./todo.js";
 
-export default function createProject(title, description) {
-   let todoList = [];
-   let privateTitle = title;
-   let privateDescription = description;
+export default function createProject(title, description, todos = [], saveCallback) {
+  let todoList = todos;
+  let privateTitle = title;
+  let privateDescription = description;
+  let onSave = saveCallback;
 
-   const addNewTodo = (title, description, dueDate, priority) => {
-      todoList.push(createTodo(title, description, dueDate, priority));
-      saveData();
-      // How to save the state after adding a todo?
-      // You could call saveToLocalStorage() here, but the factory can't
-      // access it directly. You need a way to connect it back.
-      // Maybe the parent module needs to be aware of this action.
-   };
+  const addNewTodo = (title, description, dueDate, priority) => {
+    const newTodo = createTodo(title, description, dueDate, priority, false, onSave);
+    todoList.push(newTodo);
+    onSave();
+  };
 
-   const removeTodo = index => todoList.splice(index, 1);
-   const getTodoList = () => todoList;
-   const getTitle = () => privateTitle;
-   const getDesc = () => privateDescription;
-   const setTitle = newTitle => (privateTitle = newTitle);
-   const setDesc = newDescription => (privateDescription = newDescription);
+  const removeTodo = index => {
+    todoList.splice(index, 1);
+    onSave();
+  };
+  
+  const getTodoList = () => todoList;
+  const getTitle = () => privateTitle;
+  const getDesc = () => privateDescription;
+  
+  const setTitle = newTitle => {
+    privateTitle = newTitle;
+    onSave();
+  };
+  
+  const setDesc = newDescription => {
+    privateDescription = newDescription;
+    onSave();
+  };
 
-   return {
-      getTitle,
-      getDesc,
-      setTitle,
-      setDesc,
-      addNewTodo,
-      removeTodo,
-      getTodoList,
-   };
+  const toJSON = () => ({
+    title: privateTitle,
+    description: privateDescription,
+    todos: todoList.map(todo => todo.toJSON()),
+  });
+
+  return {
+    getTitle,
+    getDesc,
+    setTitle,
+    setDesc,
+    addNewTodo,
+    removeTodo,
+    getTodoList,
+    toJSON,
+  };
 }
