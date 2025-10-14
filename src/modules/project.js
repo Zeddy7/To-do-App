@@ -1,9 +1,8 @@
 import createTodo from "./todo.js";
 
-export default function createProject(title, description, todos = [], saveCallback) {
+export default function createProject(title, todos = [], saveCallback) {
   let todoList = todos;
   let privateTitle = title;
-  let privateDescription = description;
   let onSave = saveCallback;
 
   const addNewTodo = (title, description, dueDate, priority) => {
@@ -19,29 +18,20 @@ export default function createProject(title, description, todos = [], saveCallba
   
   const getTodoList = () => todoList;
   const getTitle = () => privateTitle;
-  const getDesc = () => privateDescription;
   
   const setTitle = newTitle => {
     privateTitle = newTitle;
     onSave();
   };
   
-  const setDesc = newDescription => {
-    privateDescription = newDescription;
-    onSave();
-  };
-
   const toJSON = () => ({
     title: privateTitle,
-    description: privateDescription,
     todos: todoList.map(todo => todo.toJSON()),
   });
 
   return {
     getTitle,
-    getDesc,
     setTitle,
-    setDesc,
     addNewTodo,
     removeTodo,
     getTodoList,

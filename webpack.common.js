@@ -23,10 +23,9 @@ module.exports = {
             test: /\.html$/i,
             use: "html-loader",
          },
-         // Rule for image files (using Webpack 5 Asset Modules)
          {
             test: /\.(png|jpe?g|gif|svg|webp)$/i,
-            type: "asset/resource", // Copies the asset to the output directory
+            type: "asset/resource",  
          },
       ],
    },

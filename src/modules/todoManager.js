@@ -23,7 +23,6 @@ const TodoManager = (function () {
     );
     return createProject(
       parsedProject.title,
-      parsedProject.description,
       rehydratedTodos,
       saveToStorage
     );
@@ -43,8 +42,8 @@ const TodoManager = (function () {
     }
   };
 
-  const addProject = (title, description) => {
-    const newProject = createProject(title, description, [], saveToStorage);
+  const addProject = (title) => {
+    const newProject = createProject(title, [], saveToStorage);
     projectList.push(newProject);
     saveToStorage();
     return newProject;
@@ -55,7 +54,7 @@ const TodoManager = (function () {
   (function init() {
     loadFromStorage();
     if (projectList.length === 0) {
-      addProject("Default Project", "Your first project!");
+      addProject("Default Project");
     }
   })();
 
