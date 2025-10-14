@@ -54,7 +54,7 @@ const TodoManager = (function () {
   (function init() {
     loadFromStorage();
     if (projectList.length === 0) {
-      addProject("Default Project");
+      addProject("Default");
     }
   })();
 

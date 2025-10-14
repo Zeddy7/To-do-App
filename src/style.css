@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 :root {
    --primary-color: #212121;
    --secondary-color: #2f2f2f;
@@ -13,13 +13,13 @@
 * {
    margin: 0;
    padding: 0;
+   font-family: "Nunito Sans", sans-serif, cursive, system-ui, -apple-system,
+      "Segoe UI";
 }
 
 html {
-   font-family: sans, "Nunito Sans", sans-serif, cursive, system-ui, -apple-system, "Segoe UI";
    line-height: 1.5rem;
    font-weight: 600;
-   text-decoration:  none;
 }
 
 body {
@@ -49,6 +49,10 @@ body {
 #sidebar.close {
    padding: 5px;
    width: 60px;
+
+   .project {
+      display: none;
+   }
 }
 
 #sidebar ul {
@@ -74,6 +78,7 @@ body {
 }
 
 #sidebar a,
+.project,
 #sidebar .dropdown-btn,
 #sidebar .logo {
    border-radius: 0.5em;
@@ -82,7 +87,7 @@ body {
    color: var(--primary-text);
    display: flex;
    align-items: center;
-   gap: 1em;
+   gap: 1.2em;
 }
 
 .dropdown-btn {
@@ -109,30 +114,14 @@ body {
    background-color: var(--secondary-color);
 }
 
-/* #sidebar .sub-menu {
-   display: grid;
-   grid-template-rows: 0fr;
-   transition: 300ms ease-in-out;
-
-   > div {
-      overflow: hidden;
-   }
-}
-
-#sidebar .sub-menu.show {
-   grid-template-rows: 1fr;
-} */
-
-.dropdown-btn img {
-   transition: 200ms ease;
-}
-
-.rotate img:last-child {
-   rotate: -180deg;
-}
-
-#sidebar .sub-menu li {
+.project {
    padding-left: 2em;
+   display: flex;
+}
+
+.project li {
+   flex-grow: 1;
+   overflow: hidden;
 }
 
 #toggle-btn {
@@ -170,74 +159,51 @@ main p {
    }
 }
 
-dialog {
-   background-color: rgb(118, 80, 31);
-   color: white;
-   border-radius: 20px;
-   border: 0;
-   margin: 15% auto;
-   height: 60%;
-   width: 30%;
-}
-
-dialog > header {
-   display: flex;
-   justify-content: space-between;
-}
-
-dialog > header > h2 {
-   padding: 20px 20px 0;
-   flex: 1;
-   text-align: center;
-}
-
-dialog > header > button {
-   border: 1px solid black;
-   height: 20px;
-   width: 20px;
-   border-radius: 60px;
-   background-color: rgb(106, 82, 48);
-   cursor: pointer;
-}
-
 .dialog-content {
+   display: none;
    height: 55%;
    padding: 15px;
+
+   button {
+      font-size: 12px;
+      font-weight: 600;
+      background-color: var(--tertiary-color);
+      color: var(--secondary-text);
+      width: 80px;
+      padding: 7px;
+      border-radius: 5px;
+      border: 0;
+      cursor: pointer;
+   }
+
+   .cancel {
+      background-color: rgb(201, 1, 1);
+   }
+
+   .add {
+      background-color: green;
+   }
+}
+
+.close-project {
+   display: block;
+}
+
+.proj-btn {
+   display: flex;
+   gap: 15px;
 }
 
 #title {
    width: 100%;
    height: 25px;
-   margin-bottom: 30px;
+   margin-bottom: 10px;
    border-radius: 10px;
-   border: 1px solid rgb(255, 162, 0);
    outline: none;
    padding: 0 10px;
-}
-
-#read {
-   margin-bottom: 20px;
 }
 
 #title:focus {
    border: 1px solid rgb(0, 0, 0);
    outline: none;
-}
-
-form > button {
-   display: block;
-   margin: 0 auto;
-   padding: 20px;
-   border-radius: 10px;
-   border: 2px solid rgb(107, 68, 0);
-   cursor: pointer;
-}
-
-form > button:hover {
-   background-color: rgb(127, 87, 35);
-   transform: translateY(0);
-}
-
-form > button:active {
-   color: rgb(223, 157, 42);
 }

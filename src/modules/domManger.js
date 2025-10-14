@@ -1,4 +1,5 @@
 import TodoManager from "./todoManager";
+import ProjectImage from "../images/assignment_add_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg";
 
 const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
@@ -9,6 +10,9 @@ const DomManager = (function () {
 
       projects.forEach((project, index) => {
          const card = document.createElement("div");
+         const newImage = document.createElement("img");
+         newImage.src = ProjectImage;
+
          card.classList.add("project");
          card.dataset.index = index;
 
@@ -21,6 +25,7 @@ const DomManager = (function () {
             renderTodos(selectedProject.getTodoList());
          });
 
+         card.prepend(newImage);
          projectContainer.appendChild(card);
       });
    };
@@ -41,27 +46,57 @@ const DomManager = (function () {
       });
    };
 
-   const myDialog = document.getElementById("myDialog");
-   const openButton = document.getElementById("openDialog");
-   const closeButton = document.getElementById("closeDialog");
-   const addProjectButton = document.querySelector(".addProject");
    const title = document.querySelector("#title");
    const form = document.querySelector("form");
+   const addProjectButton = document.querySelector(".addProject");
+   const sidebar = document.getElementById("sidebar");
+   const openProject = document.getElementById("open-project");
+   const addProjectContent = document.querySelector(".dialog-content");
+   const closeProjectContent = document.querySelector(".cancel-project");
 
-   openButton.addEventListener("click", () => {
-      myDialog.showModal();
-   });
-   closeButton.addEventListener("click", () => {
-      myDialog.close();
-   });
-   addProjectButton.addEventListener("click", e => {
-      if (!title.value) return e.preventDefault();
+   addProjectButton.addEventListener("click", () => {
+      if (!title.value) return;
       TodoManager.addProject(title.value);
       const projects = TodoManager.getProjects();
       renderProjects(projects);
       form.reset();
-      myDialog.close();
+      addProjectContent.classList.toggle("close-project");
    });
+
+   openProject.addEventListener("click", () => {
+      if (sidebar.classList.contains("close")) {
+         sidebar.classList.toggle("close");
+      }
+      addProjectContent.classList.toggle("close-project");
+      form.reset()
+   });
+
+   closeProjectContent.addEventListener("click", () => {
+      form.reset();
+      addProjectContent.classList.toggle("close-project");
+   });
+
+   //    const myDialog = document.getElementById("myDialog");
+   //    const openButton = document.getElementById("openDialog");
+   //    const closeButton = document.getElementById("closeDialog");
+   //    const addProjectButton = document.querySelector(".addProject");
+   //    const title = document.querySelector("#title");
+   //    const form = document.querySelector("form");
+
+   //    openButton.addEventListener("click", () => {
+   //       myDialog.showModal();
+   //    });
+   //    closeButton.addEventListener("click", () => {
+   //       myDialog.close();
+   //    });
+   //    addProjectButton.addEventListener("click", e => {
+   //       if (!title.value) return e.preventDefault();
+   //       TodoManager.addProject(title.value);
+   //       const projects = TodoManager.getProjects();
+   //       renderProjects(projects);
+   //       form.reset();
+   //       myDialog.close();
+   //    });
 
    const init = () => {
       const projects = TodoManager.getProjects();

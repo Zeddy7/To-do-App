@@ -18,14 +18,14 @@
             <li class="active">
                <a href="index.html">
                   <img
-                     src="./images/home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+                     src="./images/today_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" />
                   <span>Today</span>
                </a>
             </li>
             <li>
                <a href="dashboard.html">
                   <img
-                     src="./images/dashboard_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+                     src="./images/event_upcoming_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" />
                   <span>This Week</span>
                </a>
             </li>
@@ -39,45 +39,26 @@
             <li>
                <a href="profile.html">
                   <img
-                     src="./images/account_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+                     src="./images/checklist_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
                   <span>Completed</span>
                </a>
             </li>
             <li>
-               <button id="openDialog" class="dropdown-btn">
+               <button id="open-project" class="dropdown-btn">
                   <img
                      src="./images/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
                   <span>Add Project</span>
-
-                  <dialog id="myDialog">
-                     <div class="dialog-content">
-                        <form>
-                           <input type="text" id="title" required />
-                           <button id="closeDialog">Cancel</button>
-                           <button
-                              class="addProject"
-                              type="submit"
-                              formmethod="dialog">
-                              <strong>Add Book</strong>
-                           </button>
-                        </form>
-                     </div>
-                  </dialog>
                </button>
-               <div>
-                  <input type="text" id="title" required />
-                  <button class="addProject" type="submit" formmethod="dialog">
-                     <strong>Add Book</strong>
-                  </button>
-                  <button id="closeDialog">Cancel</button>
+               <div class="dialog-content close">
+                  <form>
+                     <input type="text" id="title" required />
+                  </form>
+                  <div class="proj-btn">
+                     <button class="cancel cancel-project">Cancel</button>
+                     <button class="addProject add">Add Project</button>
+                  </div>
                </div>
-               <div class="project-container">
-                  <li><a href="#">Folder</a></li>
-                  <li><a href="#">Document</a></li>
-                  <li><a href="#">Project</a></li>
-               </div>
-               <!-- <ul class="sub-menu">
-               </ul> -->
+               <ul class="project-container"></ul>
             </li>
          </ul>
       </nav>
@@ -94,6 +75,6 @@
          </div>
       </main>
       <div id="content"></div>
-      <!-- <script src="./index.js"></script> -->
+      <!-- <script src="./script.js"></script> -->
    </body>
 </html>

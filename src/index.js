@@ -1,15 +1,17 @@
 import DomManager from "./modules/domManger";
-import "./style.css"
+import "./style.css";
 
-DomManager.init()
+DomManager.init();
 
 const toggleButton = document.getElementById("toggle-btn");
 const sidebar = document.getElementById("sidebar");
+const addProjectContent = document.querySelector(".dialog-content");
 
-function toggleSidebar() {
+toggleButton.addEventListener("click", () => {
    sidebar.classList.toggle("close");
-   closeSubMenus();
-}
+   addProjectContent.classList.remove("close-project");
+});
+
 
 // function toggleSubMenu(button) {
 //    if (!button.nextElementSibling.classList.contains("show")) {
