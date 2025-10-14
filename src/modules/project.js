@@ -1,9 +1,6 @@
 import createTodo from "./todo.js";
 
-export default function createProject(title, todos = ["todoData.title",
-        "todoData.description",
-        "todoData.dueDate",
-        "todoData.priority"], saveCallback) {
+export default function createProject(title, todos = [], saveCallback) {
   let todoList = todos;
   let privateTitle = title;
   let onSave = saveCallback;
