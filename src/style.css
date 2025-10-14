@@ -110,6 +110,7 @@ body {
 }
 
 #sidebar a:hover,
+.project:hover,
 #sidebar .dropdown-btn:hover {
    background-color: var(--secondary-color);
 }

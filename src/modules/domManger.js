@@ -17,7 +17,7 @@ const DomManager = (function () {
          card.dataset.index = index;
 
          card.innerHTML = `
-            <li><a>${project.getTitle()}</a></li>`;
+            <li>${project.getTitle()}</li>`;
 
          card.addEventListener("click", e => {
             const idx = e.currentTarget.dataset.index;
@@ -47,7 +47,6 @@ const DomManager = (function () {
    };
 
    const title = document.querySelector("#title");
-   const form = document.querySelector("form");
    const addProjectButton = document.querySelector(".addProject");
    const sidebar = document.getElementById("sidebar");
    const openProject = document.getElementById("open-project");
@@ -59,7 +58,7 @@ const DomManager = (function () {
       TodoManager.addProject(title.value);
       const projects = TodoManager.getProjects();
       renderProjects(projects);
-      form.reset();
+      title.value = '';
       addProjectContent.classList.toggle("close-project");
    });
 
@@ -68,11 +67,11 @@ const DomManager = (function () {
          sidebar.classList.toggle("close");
       }
       addProjectContent.classList.toggle("close-project");
-      form.reset()
+      title.value = ''
    });
 
    closeProjectContent.addEventListener("click", () => {
-      form.reset();
+      title.value = '';
       addProjectContent.classList.toggle("close-project");
    });
 
@@ -94,7 +93,7 @@ const DomManager = (function () {
    //       TodoManager.addProject(title.value);
    //       const projects = TodoManager.getProjects();
    //       renderProjects(projects);
-   //       form.reset();
+   //       title.value = '';
    //       myDialog.close();
    //    });
 
