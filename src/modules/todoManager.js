@@ -47,73 +47,15 @@ const TodoManager = (function () {
 
    const getProjects = () => projectList;
 
-   // const addTodoToProject = (
-   //    projectIndex,
-   //    title,
-   //    description,
-   //    dueDate,
-   //    priority,
-   //    saveToStorage
-   // ) => {
-   //    const project = projectList[projectIndex];
-   //    if (project) {
-   //       const newTodo = createTodo(
-   //          title,
-   //          description,
-   //          dueDate,
-   //          priority,
-   //          saveToStorage
-   //       );
-   //       project.addNewTodo(newTodo);
-   //       saveToStorage();
-   //    }
-   // };
-
-   // New: Method to populate the default project with todos
-   const populateDefaultProject = (defaultProject) => {
-    const sampleTodos = [
-      {
-        title: "Build the UI",
-        description: "Implement the DOM manipulation to render projects and todos.",
-        dueDate: "2025-10-17",
-        priority: "High"
-      },
-      {
-        title: "Test localStorage",
-        description: "Add some test data and verify that it persists after a page refresh.",
-        dueDate: "2025-10-18",
-        priority: "Medium"
-      },
-      {
-        title: "Test localStorage",
-      //   description: "Add some test data and verify that it persists after a page refresh.",
-        dueDate: "2025-10-18",
-        priority: "Medium"
+   (function init() {
+      loadFromStorage();
+      if (projectList.length === 0) {
+         const defaultProject = addProject("Default");
+         populateDefaultProject(defaultProject);
       }
-    ];
+   })();
 
-    
-
-    sampleTodos.forEach(todoData => {
-      // Use the project's internal addNewTodo method, which handles the callback
-      defaultProject.addNewTodo(
-        todoData.title,
-        todoData.description,
-        todoData.dueDate,
-        todoData.priority
-      );
-    });
-  };
-
-  (function init() {
-    loadFromStorage();
-    if (projectList.length === 0) {
-      const defaultProject = addProject("Default");
-      populateDefaultProject(defaultProject);
-    }
-  })();
-
-  return { addProject, getProjects };
-})()
+   return { addProject, getProjects };
+})();
 
 export default TodoManager;

@@ -2,7 +2,7 @@ export default function createTodo(
    title,
    description = "",
    dueDate,
-   priority,
+   priority = 'No priority',
    isComplete = false,
    saveCallback
 ) {
