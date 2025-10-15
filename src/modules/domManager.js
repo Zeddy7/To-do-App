@@ -6,6 +6,35 @@ const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
    // const todoContainer = document.querySelector(".todo-container");
    const todoMain = document.querySelector(".todo-content");
+   const myDialog = document.getElementById("myDialog");
+   const openButton = document.getElementById("openDialog");
+   const closeButton = document.querySelector(".closeDialog");
+   const submitTodo = document.querySelector(".submit-todo");
+   const todoTitle = document.querySelector("#todo-title");
+   const dueDate = document.querySelector("#todo-date");
+   const description = document.querySelector("#description");
+   const taskPriority = document.querySelector("#task-priority");
+
+   openButton.addEventListener("click", () => {
+      myDialog.showModal();
+   });
+
+   closeButton.addEventListener("click", () => {
+      myDialog.close();
+   });
+   submitTodo.addEventListener("click", e => {
+      // if ((!title.value, !dueDate.value, !description.value))
+      return e.preventDefault();
+      // addBookToLibrary(
+      //    title.value,
+      //    description.value,
+      //    dueDate.value,
+      //    taskPriority.value
+      // );
+      // displayBooks();
+      form.reset();
+      myDialog.close();
+   });
 
    const renderProjects = projects => {
       projectContainer.textContent = "";
@@ -14,7 +43,7 @@ const DomManager = (function () {
          const card = document.createElement("div");
          const newImage = document.createElement("img");
          newImage.src = ProjectImage;
-         
+
          const editImage = document.createElement("img");
          editImage.src = EditImage;
 
@@ -30,8 +59,8 @@ const DomManager = (function () {
             renderTodos(selectedProject.getTodoList());
          });
 
-         editImage.addEventListener("click", (e) => {
-            e.target
+         editImage.addEventListener("click", e => {
+            e.target;
             myDialog.showModal();
          });
 
@@ -47,9 +76,8 @@ const DomManager = (function () {
          const todoContainer = document.createElement("div");
          todoContainer.classList.add("todo-container");
 
-          const newImage = document.createElement("img");
+         const newImage = document.createElement("img");
          newImage.src = EditImage;
-
 
          todoContainer.innerHTML = `
          <input type="checkbox" id="item${index}" />
@@ -57,8 +85,8 @@ const DomManager = (function () {
          <p class="todo-desc">${todo.getDesc()}</p>
          <p>${todo.getDate()}</p>`;
 
-         newImage.addEventListener("click", (e) => {
-            e.target
+         newImage.addEventListener("click", e => {
+            e.target;
             myDialog.showModal();
          });
 
@@ -117,8 +145,6 @@ const DomManager = (function () {
    //       title.value = '';
    //       myDialog.close();
    //    });
-
-   
 
    const init = () => {
       const projects = TodoManager.getProjects();

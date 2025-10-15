@@ -184,11 +184,11 @@ main p {
       cursor: pointer;
    }
 
-   .cancel-todo {
+   .cancel {
       background-color: var(--red-buttons);
    }
 
-   .submit-todo {
+   .add {
       background-color: var(--green-buttons);
    }
 }

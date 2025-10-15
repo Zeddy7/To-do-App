@@ -47,17 +47,58 @@ const TodoManager = (function () {
 
    const getProjects = () => projectList;
 
-   
+   function addTodoToProject(
+      index,
+      title,
+      description,
+      dueDate,
+      priority,
+      isComplete
+   ) {
+      const chosenProject = index;
+      const specificProject = projectList[chosenProject];
+      if (specificProject) {
+         specificProject.addNewTodo(
+            title,
+            description,
+            dueDate,
+            priority,
+            isComplete
+         );
+      }
+      // saveToStorage()
+   }
+
+   function populateProject(defaultProject) {
+      defaultProject.addNewTodo(
+         "Build the UI",
+         "Implement the DOM manipulation to render projects and todos.",
+         "2025-10-17",
+         "High"
+      );
+      defaultProject.addNewTodo(
+         "Test localStorage",
+         "Add some test data and verify that it persists after a page refresh.",
+         "2025-10-18",
+         "Medium"
+      );
+      defaultProject.addNewTodo(
+         "Create a README.md file",
+         "",
+         "2025-10-18",
+         "Medium"
+      );
+   }
 
    (function init() {
       loadFromStorage();
       if (projectList.length === 0) {
          const defaultProject = addProject("Default");
-         populateDefaultProject(defaultProject);
+         populateProject(defaultProject);
       }
    })();
 
-   return { addProject, getProjects };
+   return { addProject, getProjects, addTodoToProject };
 })();
 
 export default TodoManager;
