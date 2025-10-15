@@ -47,27 +47,27 @@ const TodoManager = (function () {
 
    const getProjects = () => projectList;
 
-   const addTodoToProject = (
-      projectIndex,
-      title,
-      description,
-      dueDate,
-      priority,
-      saveToStorage
-   ) => {
-      const project = projectList[projectIndex];
-      if (project) {
-         const newTodo = createTodo(
-            title,
-            description,
-            dueDate,
-            priority,
-            saveToStorage
-         );
-         project.addNewTodo(newTodo);
-         saveToStorage();
-      }
-   };
+   // const addTodoToProject = (
+   //    projectIndex,
+   //    title,
+   //    description,
+   //    dueDate,
+   //    priority,
+   //    saveToStorage
+   // ) => {
+   //    const project = projectList[projectIndex];
+   //    if (project) {
+   //       const newTodo = createTodo(
+   //          title,
+   //          description,
+   //          dueDate,
+   //          priority,
+   //          saveToStorage
+   //       );
+   //       project.addNewTodo(newTodo);
+   //       saveToStorage();
+   //    }
+   // };
 
    // New: Method to populate the default project with todos
    const populateDefaultProject = (defaultProject) => {

@@ -1,5 +1,6 @@
 import TodoManager from "./todoManager";
 import ProjectImage from "../images/assignment_add_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg";
+import EditImage from "../images/edit.svg";
 
 const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
@@ -37,16 +38,22 @@ const DomManager = (function () {
          const todoContainer = document.createElement("div");
          todoContainer.classList.add("todo-container");
 
+          const newImage = document.createElement("img");
+         newImage.src = EditImage;
+
+
          todoContainer.innerHTML = `
          <input type="checkbox" id="item${index}" />
          <label for="item${index}">${todo.getTitle()}</label>
          <p class="todo-desc">${todo.getDesc()}</p>
          <p>${todo.getDate()}</p>`;
 
-         todoContainer.addEventListener("click", () => {
+         newImage.addEventListener("click", (e) => {
+            e.target
             myDialog.showModal();
          });
 
+         todoContainer.appendChild(newImage);
          todoMain.appendChild(todoContainer);
       });
    };
