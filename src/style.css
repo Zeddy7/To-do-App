@@ -240,13 +240,23 @@ main p {
 }
 
 .todo-container label {
-   flex: 1;
    align-self: center;
    position: relative;
    padding-left: 35px;
    cursor: pointer;
    font-size: 18px;
    user-select: none;
+}
+
+.todo-container p:not(.todo-desc) {
+   align-self: center;
+   padding-right: 20px;
+   font-size: 18px;
+}
+
+.todo-desc {
+   flex: 1;
+   font-size: smaller;
 }
 
 .todo-container label::before {
@@ -329,7 +339,6 @@ dialog {
    border-radius: 20px;
    border: 0;
    margin: 7% auto;
-   height: auto;
    width: 20%;
    padding: min(3%, 15px);
 
