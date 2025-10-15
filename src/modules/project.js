@@ -5,13 +5,13 @@ export default function createProject(title, todos = [], saveCallback) {
    let privateTitle = title;
    let onSave = saveCallback;
 
-   const addNewTodo = (title, description, dueDate, priority) => {
+   const addNewTodo = (title, description, dueDate, priority, isComplete) => {
       const newTodo = createTodo(
          title,
          description,
          dueDate,
          priority,
-         false,
+         isComplete,
          onSave
       );
       todoList.push(newTodo);

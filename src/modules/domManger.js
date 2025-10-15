@@ -14,6 +14,9 @@ const DomManager = (function () {
          const card = document.createElement("div");
          const newImage = document.createElement("img");
          newImage.src = ProjectImage;
+         
+         const editImage = document.createElement("img");
+         editImage.src = EditImage;
 
          card.classList.add("project");
          card.dataset.index = index;
@@ -27,7 +30,13 @@ const DomManager = (function () {
             renderTodos(selectedProject.getTodoList());
          });
 
+         editImage.addEventListener("click", (e) => {
+            e.target
+            myDialog.showModal();
+         });
+
          card.prepend(newImage);
+         card.append(editImage);
          projectContainer.appendChild(card);
       });
    };
@@ -108,6 +117,8 @@ const DomManager = (function () {
    //       title.value = '';
    //       myDialog.close();
    //    });
+
+   
 
    const init = () => {
       const projects = TodoManager.getProjects();

@@ -40,7 +40,6 @@ export default function createTodo(
       onSave();
    };
 
-   // This method is automatically called by JSON.stringify
    const toJSON = () => ({
       title: privateTitle,
       description: privateDescription,

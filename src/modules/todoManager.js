@@ -47,6 +47,8 @@ const TodoManager = (function () {
 
    const getProjects = () => projectList;
 
+   
+
    (function init() {
       loadFromStorage();
       if (projectList.length === 0) {
