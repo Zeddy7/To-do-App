@@ -1,4 +1,4 @@
-export default function createTodo(title, description, dueDate, priority, isComplete = false, saveCallback) {
+export default function createTodo(title, description = '', dueDate, priority, isComplete = false, saveCallback) {
   let privateTitle = title;
   let privateDescription = description;
   let privateDueDate = dueDate;

@@ -32,17 +32,21 @@ const DomManager = (function () {
    };
 
    const renderTodos = todos => {
-      
       todoMain.textContent = "";
       todos.forEach((todo, index) => {
          const todoContainer = document.createElement("div");
          todoContainer.classList.add("todo-container");
-         
+
          todoContainer.innerHTML = `
          <input type="checkbox" id="item${index}" />
          <label for="item${index}">${todo.getTitle()}</label>
          <p class="todo-desc">${todo.getDesc()}</p>
          <p>${todo.getDate()}</p>`;
+
+         todoContainer.addEventListener("click", () => {
+            // e.target;
+            myDialog.showModal();
+         });
 
          todoMain.appendChild(todoContainer);
       });

@@ -83,8 +83,16 @@ const TodoManager = (function () {
         description: "Add some test data and verify that it persists after a page refresh.",
         dueDate: "2025-10-18",
         priority: "Medium"
+      },
+      {
+        title: "Test localStorage",
+      //   description: "Add some test data and verify that it persists after a page refresh.",
+        dueDate: "2025-10-18",
+        priority: "Medium"
       }
     ];
+
+    
 
     sampleTodos.forEach(todoData => {
       // Use the project's internal addNewTodo method, which handles the callback
