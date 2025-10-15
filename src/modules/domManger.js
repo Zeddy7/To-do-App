@@ -3,7 +3,7 @@ import ProjectImage from "../images/assignment_add_24dp_E3E3E3_FILL1_wght400_GRA
 
 const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
-   const todoContainer = document.querySelector(".todo-container");
+   // const todoContainer = document.querySelector(".todo-container");
    const todoMain = document.querySelector("main");
 
    const renderProjects = projects => {
@@ -32,23 +32,22 @@ const DomManager = (function () {
    };
 
    const renderTodos = todos => {
-      todoContainer.textContent = "";
+      // todoMain.textContent = "";
 
       todos.forEach(todo => {
          const card = document.createElement("div");
+         const todoContainer = document.createElement("div");
+
+         todoContainer.classList.add("todo-container");
          card.classList.add("todo");
          card.innerHTML = `
          <input type="checkbox" id="item1" />
-            <label for="item1">${todo.getTitle()}</label>
-            <p class="todo-desc">${todo.getDesc()}</p>
-            <p>${todo.getDate()}</p>`;
-         // <h2>${todo.getTitle()}</h2>
-         // <p>Description: ${todo.getDesc()}</p>
-         // <h2>${todo.getDate()}</h2>
-         // <h2>${todo.getPrio()}</h2>
-         // <h2>${todo.getCompStatus()}</h2>;
-         todoContainer.appendChild(card);
+         <label for="item1">${todo.getTitle()}</label>
+         <p class="todo-desc">${todo.getDesc()}</p>
+         <p>${todo.getDate()}</p>`;
+
          todoMain.appendChild(todoContainer);
+         todoContainer.appendChild(card);
       });
    };
 
