@@ -8,6 +8,9 @@
    --secondary-text: #ececec;
    --font-size-base: 12px;
    --active-page: #2f2f2f;
+   --green-buttons: green;
+   --yellow-buttons: rgb(255, 255, 57);
+   --red-buttons: rgb(201, 1, 1);
 }
 
 * {
@@ -181,12 +184,12 @@ main p {
       cursor: pointer;
    }
 
-   .cancel {
-      background-color: rgb(201, 1, 1);
+   .cancel-todo {
+      background-color: var(--red-buttons);
    }
 
-   .add {
-      background-color: green;
+   .submit-todo {
+      background-color: var(--green-buttons);
    }
 }
 
@@ -226,8 +229,6 @@ main p {
    background: none;
    border: 2px solid var(--active-page);
    cursor: pointer;
-   display: flex;
-   justify-content: center;
 }
 
 .todo-container input[type="checkbox"] {
@@ -287,14 +288,16 @@ select,
    appearance: base-select;
    background-color: var(--tertiary-color);
    border-radius: 10px;
-   border: 0;
+   border: 2px solid black;
    color: var(--secondary-text);
    font-size: 16px;
 }
 
 select {
+   width: 100%;
    padding: 10px;
    cursor: pointer;
+   margin-bottom: 20px;
 }
 
 select:hover,
@@ -309,14 +312,106 @@ option[value="Low Priority"] {
 }
 
 option[value="Medium Priority"] {
-   background-color: rgb(255, 255, 57);
+   background-color: var(--yellow-buttons);
 }
 
 option[value="High Priority"] {
-   background-color: red;
+   background-color: var(--red-buttons);
 }
-
 option {
    color: black;
-   width: 150px;
+   width: 100%;
+}
+
+dialog {
+   background-color: var(--tertiary-color);
+   color: white;
+   border-radius: 20px;
+   border: 0;
+   margin: 7% auto;
+   height: auto;
+   width: 20%;
+   padding: min(3%, 15px);
+
+   #description,
+   button,
+   label,
+   input {
+      display: block;
+      font-size: 100%;
+      margin: 0;
+      box-sizing: border-box;
+      padding: 5px;
+      height: auto;
+      outline: none;
+   }
+
+   #description,
+   input {
+      color: var(--secondary-text);
+      background-color: inherit;
+      width: 100%;
+      border: 2px solid black;
+      margin-bottom: 20px;
+      resize: none;
+   }
+
+   input[type="datetime-local"] {
+      box-shadow: inset 1px 1px 3px #cccccc;
+      border-radius: 5px;
+      color: white;
+   }
+
+   button {
+      color: #171717;
+      width: 35%;
+      margin: 0 auto;
+   }
+
+   *{
+      overflow: hidden;
+   }
+}
+
+dialog > header > h2 {
+   padding: 20px 20px 0;
+   flex: 1;
+   text-align: center;
+   margin-bottom: 20px;
+}
+
+dialog > header > button {
+   border: 1px solid black;
+   height: 20px;
+   width: 20px;
+   border-radius: 60px;
+   background-color: var(--secondary-text);
+   cursor: pointer;
+}
+
+dialog > header {
+   display: flex;
+   justify-content: space-between;
+}
+
+.dialog-buttons {
+   display: flex;
+
+   button {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--secondary-text);
+      width: 40%;
+      border-radius: 5px;
+      border: 0;
+      cursor: pointer;
+   }
+
+   .cancel-todo {
+      background-color: var(--red-buttons);
+   }
+
+   .submit-todo {
+      background-color: var(--green-buttons);
+   }
 }
