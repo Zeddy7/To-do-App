@@ -44,7 +44,6 @@ const DomManager = (function () {
          <p>${todo.getDate()}</p>`;
 
          todoContainer.addEventListener("click", () => {
-            // e.target;
             myDialog.showModal();
          });
 

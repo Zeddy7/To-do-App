@@ -20,14 +20,8 @@ const todoTitle = document.querySelector("#todo-title");
 const dueDate = document.querySelector("#todo-date");
 const description = document.querySelector("#description");
 const taskPriority = document.querySelector("#task-priority");
-const todoContainer = document.querySelector(".todo-container");
 
 openButton.addEventListener("click", () => {
-   myDialog.showModal();
-});
-
-todoContainer.addEventListener("click", () => {
-   // e.target;
    myDialog.showModal();
 });
 
@@ -36,7 +30,7 @@ closeButton.addEventListener("click", () => {
 });
 submitTodo.addEventListener("click", e => {
    // if ((!title.value, !dueDate.value, !description.value))
-      return e.preventDefault();
+   return e.preventDefault();
    // addBookToLibrary(
    //    title.value,
    //    description.value,
