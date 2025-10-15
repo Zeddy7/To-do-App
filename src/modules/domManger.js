@@ -4,6 +4,7 @@ import ProjectImage from "../images/assignment_add_24dp_E3E3E3_FILL1_wght400_GRA
 const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
    const todoContainer = document.querySelector(".todo-container");
+   const todoMain = document.querySelector("main");
 
    const renderProjects = projects => {
       projectContainer.textContent = "";
@@ -37,12 +38,17 @@ const DomManager = (function () {
          const card = document.createElement("div");
          card.classList.add("todo");
          card.innerHTML = `
-         <h2>${todo.getTitle()}</h2>
-         <p>Description: ${todo.getDesc()}</p>
-         <h2>${todo.getDate()}</h2>
-         <h2>${todo.getPrio()}</h2>
-         <h2>${todo.getCompStatus()}</h2>`;
+         <input type="checkbox" id="item1" />
+            <label for="item1">${todo.getTitle()}</label>
+            <p class="todo-desc">${todo.getDesc()}</p>
+            <p>${todo.getDate()}</p>`;
+         // <h2>${todo.getTitle()}</h2>
+         // <p>Description: ${todo.getDesc()}</p>
+         // <h2>${todo.getDate()}</h2>
+         // <h2>${todo.getPrio()}</h2>
+         // <h2>${todo.getCompStatus()}</h2>;
          todoContainer.appendChild(card);
+         todoMain.appendChild(todoContainer);
       });
    };
 
@@ -58,7 +64,7 @@ const DomManager = (function () {
       TodoManager.addProject(title.value);
       const projects = TodoManager.getProjects();
       renderProjects(projects);
-      title.value = '';
+      title.value = "";
       addProjectContent.classList.toggle("close-project");
    });
 
@@ -67,11 +73,11 @@ const DomManager = (function () {
          sidebar.classList.toggle("close");
       }
       addProjectContent.classList.toggle("close-project");
-      title.value = ''
+      title.value = "";
    });
 
    closeProjectContent.addEventListener("click", () => {
-      title.value = '';
+      title.value = "";
       addProjectContent.classList.toggle("close-project");
    });
 

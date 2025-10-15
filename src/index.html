@@ -4,6 +4,7 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>TO-DO OR NOT TO-DO</title>
+      <!-- <link rel="stylesheet" href="style.css" /> -->
    </head>
    <body>
       <nav id="sidebar">
@@ -64,17 +65,65 @@
       </nav>
 
       <main>
+         <div class="add-todo-div">
+            <button class="add-todo" id="openDialog">
+               Add Todo<img
+                  src="./images/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
+            </button>
+         </div>
          <div class="todo-container">
-            <h2>Hello World</h2>
-            <p>
-               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore,
-               sed, vitae minima reprehenderit illum, quo id architecto eum
-               saepe dolores aspernatur inventore porro earum dolorum facilis
-               quas sapiente nemo ipsa?
-            </p>
+            <input type="checkbox" id="item1" />
+            <label for="item1">Checklist Item 1</label>
+            <p class="todo-desc">lorem Lorem ipsum dolor sit amet consectetur, adipisicing elit. </p>
+            <p>2022-11-02</p>
          </div>
       </main>
-      <div id="content"></div>
-      <!-- <script src="./script.js"> -->
+
+      <dialog id="myDialog">
+         <header>
+            <h2>Add a Todo</h2>
+         </header>
+         <div class="todos-content">
+            <form>
+               <label for="todo-title">Title:</label>
+               <input
+                  placeholder="Today's stuff"
+                  type="text"
+                  id="todo-title"
+                  required />
+               <label for="description">Description:</label>
+               <textarea
+                  placeholder="Walk the dog
+Do laundry
+Go grocery shopping"
+                  id="description"
+                  rows="3"></textarea>
+               <label for="todo-date">Due Date:</label>
+               <input type="date" id="todo-date" required />
+               <label for="task-priority">Choose Priority:</label>
+               <select id="task-priority" required>
+                  <option class="priority-option" selected disabled hidden>
+                     No Priority
+                  </option>
+                  <option class="priority-option" value="Low Priority">
+                     Low Priority
+                  </option>
+                  <option class="priority-option" value="Medium Priority">
+                     Medium Priority
+                  </option>
+                  <option class="priority-option" value="High Priority">
+                     High Priority
+                  </option>
+               </select>
+               <div class="dialog-buttons">
+                  <button class="submit-todo" type="submit" formmethod="dialog">
+                     Add Todo
+                  </button>
+                  <button class="cancel-todo closeDialog">Cancel</button>
+               </div>
+            </form>
+         </div>
+      </dialog>
+      <!-- <script src="./script.js"></script> -->
    </body>
 </html>
