@@ -22,19 +22,15 @@ const DomManager = (function () {
    closeButton.addEventListener("click", () => {
       myDialog.close();
    });
-   submitTodo.addEventListener("click", e => {
-      // if ((!title.value, !dueDate.value, !description.value))
-      return e.preventDefault();
-      // addBookToLibrary(
-      //    title.value,
-      //    description.value,
-      //    dueDate.value,
-      //    taskPriority.value
-      // );
-      // displayBooks();
-      form.reset();
-      myDialog.close();
-   });
+
+    submitTodo.addEventListener("click", e => {
+            e.preventDefault();
+            if ((!todoTitle.value, !dueDate.value, !taskPriority.value)) return;
+            // project.addNewTodo(todoTitle.value, description.value, dueDate.value, taskPriority.value)
+            TodoManager.addTodoToProject(index, todoTitle.value, description.value, dueDate.value, taskPriority.value)
+            // form.reset();
+            myDialog.close();
+         });
 
    const renderProjects = projects => {
       projectContainer.textContent = "";
@@ -63,6 +59,8 @@ const DomManager = (function () {
             e.target;
             myDialog.showModal();
          });
+
+        
 
          card.prepend(newImage);
          card.append(editImage);
@@ -150,6 +148,14 @@ const DomManager = (function () {
       const projects = TodoManager.getProjects();
       renderProjects(projects);
    };
+//    document.addEventListener("DOMContentLoaded", () => {
+//    // const init = () => {
+//       const projects = TodoManager.getProjects();
+//       DomManager.renderProjects(projects);
+//       // renderProjects(projects);
+//    // };
+// });
+   
 
    return { init, renderProjects, renderTodos };
 })();

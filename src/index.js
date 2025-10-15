@@ -1,4 +1,5 @@
 import DomManager from "./modules/domManager";
+// import TodoManager from "./modules/todoManager";
 import "./style.css";
 
 DomManager.init();
@@ -33,4 +34,3 @@ toggleButton.addEventListener("click", () => {
 //       ul.previousElementSibling.classList.remove("rotate");
 //    });
 // }
-
