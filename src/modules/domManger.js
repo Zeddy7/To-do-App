@@ -4,7 +4,7 @@ import ProjectImage from "../images/assignment_add_24dp_E3E3E3_FILL1_wght400_GRA
 const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
    // const todoContainer = document.querySelector(".todo-container");
-   const todoMain = document.querySelector("main");
+   const todoMain = document.querySelector(".todo-content");
 
    const renderProjects = projects => {
       projectContainer.textContent = "";
@@ -32,22 +32,19 @@ const DomManager = (function () {
    };
 
    const renderTodos = todos => {
-      // todoMain.textContent = "";
-
-      todos.forEach(todo => {
-         const card = document.createElement("div");
+      
+      todoMain.textContent = "";
+      todos.forEach((todo, index) => {
          const todoContainer = document.createElement("div");
-
          todoContainer.classList.add("todo-container");
-         card.classList.add("todo");
-         card.innerHTML = `
-         <input type="checkbox" id="item1" />
-         <label for="item1">${todo.getTitle()}</label>
+         
+         todoContainer.innerHTML = `
+         <input type="checkbox" id="item${index}" />
+         <label for="item${index}">${todo.getTitle()}</label>
          <p class="todo-desc">${todo.getDesc()}</p>
          <p>${todo.getDate()}</p>`;
 
          todoMain.appendChild(todoContainer);
-         todoContainer.appendChild(card);
       });
    };
 
