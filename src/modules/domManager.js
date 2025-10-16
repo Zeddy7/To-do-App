@@ -23,8 +23,10 @@ const DomManager = (function () {
    closeButton.addEventListener("click", e => {
       e.preventDefault();
       myDialog.close();
-      console.log(e)
    });
+
+   // Add this variable at the top of your module
+   let currentProjectIndex = 0;
 
    const renderProjects = projects => {
       projectContainer.textContent = "";
@@ -44,32 +46,10 @@ const DomManager = (function () {
             <li>${project.getTitle()}</li>`;
 
          card.addEventListener("click", e => {
-            const idx = e.currentTarget.dataset.index;
-            const selectedProject = TodoManager.getProjects()[idx];
+            // Store the index when a project is clicked
+            currentProjectIndex = e.currentTarget.dataset.index;
+            const selectedProject = TodoManager.getProjects()[currentProjectIndex];
             renderTodos(selectedProject.getTodoList());
-
-            submitTodo.addEventListener("click", e => {
-               e.preventDefault();
-               if (!todoTitle.value || !dueDate.value || !taskPriority.value)
-                  return;
-               // selectedProject.addNewTodo(todoTitle.value, description.value, dueDate.value, taskPriority.value)
-               const newTodo = TodoManager.getProjects()[idx];
-               newTodo.addNewTodo(
-                  todoTitle.value,
-                  description.value,
-                  dueDate.value,
-                  taskPriority.value,
-                  false
-               );
-               // todoTitle.value = "";
-               // description.value = "";
-               // dueDate.value = "";
-               // taskPriority.reset();
-               const projects = TodoManager.getProjects();
-               renderProjects(projects);
-               form.reset();
-               myDialog.close();
-            });
          });
 
          editImage.addEventListener("click", e => {
@@ -82,6 +62,24 @@ const DomManager = (function () {
          projectContainer.appendChild(card);
       });
    };
+
+   // Move the submit handler outside of renderProjects
+   submitTodo.addEventListener("click", event => {
+      event.preventDefault();
+      if (!todoTitle.value || !dueDate.value || !taskPriority.value) return;
+      
+      TodoManager.addTodoToProject(
+         currentProjectIndex,
+         todoTitle.value,
+         description.value,
+         dueDate.value,
+         taskPriority.value
+      );
+      
+      displayTodoForSpecificProject(currentProjectIndex);
+      form.reset();
+      myDialog.close();
+   });
 
    const renderTodos = todos => {
       todoMain.innerHTML = "";
