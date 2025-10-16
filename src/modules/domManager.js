@@ -1,6 +1,7 @@
 import TodoManager from "./todoManager";
 import EditImage from "../images/edit.svg";
 import DeleteImage from "../images/delete.svg";
+import { isToday } from 'date-fns';
 
 const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
@@ -38,6 +39,16 @@ const DomManager = (function () {
 
    let currentProjectIndex = 0;
    let currentTodoIndex = 0;
+   let todayTodos = [];
+   let thisWeekTodos = [];
+
+   const renderAllTodos = (projects) => {
+      let allTodos = [];
+      projects.forEach(project => {
+         allTodos = allTodos.concat(project.getTodoList());
+      });
+      renderTodos(allTodos);
+   };
 
    const renderProjects = projects => {
       projectContainer.textContent = "";
@@ -137,6 +148,18 @@ const DomManager = (function () {
             editTaskPriority.value = todo.getPrio();
             editTodoDialog.showModal();
          });
+
+         if (isToday(new Date(todo.getDate()))) {
+            todayTodos.push(todo);
+         }
+
+         if (todo.getPrio() === "High Priority") {
+            todoContainer.style.border = "3px solid red";
+         } else if (todo.getPrio() === "Medium Priority") {
+            todoContainer.style.border = "3px solid yellow";
+         } else if (todo.getPrio() === "Low Priority") {
+            todoContainer.style.border = "3px solid green";
+         }
 
          let todoCompStatus = todo.getCompStatus();
 
@@ -283,15 +306,6 @@ const DomManager = (function () {
    };
 
    bindAll();
-
-   // const renderAllTodos = (projects) => {
-   //    projects.forEach(project => {
-   //       let allTodos = project.getTodoList();
-   //       console.log('Todos from project:', project.getTitle());
-   //       console.log('AllTodos:', allTodos);
-   //       renderTodos(allTodos);
-   //    });
-   // }
 
    const initProjects = () => {
       const projects = TodoManager.getProjects();

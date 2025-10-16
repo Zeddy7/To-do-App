@@ -6,7 +6,14 @@ DomManager.initProjects();
 const toggleButton = document.getElementById("toggle-btn");
 const sidebar = document.getElementById("sidebar");
 const addProjectContent = document.querySelector(".dialog-content");
-// const checks = document.querySelector(".todo-check");
+const allTodos = document.querySelector(".all-todos");
+const completedTodos = document.querySelector(".completed-todos");
+const todayTodos = document.querySelector(".today");
+const thisWeekTodos = document.querySelector(".this-week");
+
+allTodos.addEventListener("click", () => {
+   DomManager.initTodos();
+})
 
 toggleButton.addEventListener("click", () => {
    sidebar.classList.toggle("close");
