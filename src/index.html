@@ -34,7 +34,7 @@
                <a>
                   <img
                      src="./images/folder_copy_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" />
-                  <span>Todo Lists</span>
+                  <span>All Todos</span>
                </a>
             </li>
             <li>
@@ -146,13 +146,13 @@ Go grocery shopping"
          <div class="todos-content">
             <form class="todo-form">
                <label for="todo-title">Title:</label>
-               <input type="text" class="edit-todo-title" id="todo-title" required />
+               <input type="text" class="edit-todo-title" id="edit-todo-title" required />
                <label for="description">Description:</label>
-               <textarea class="edit-todo-description" id="description" rows="3"></textarea>
+               <textarea class="edit-todo-description" id="edit-description" rows="3"></textarea>
                <label for="todo-date">Due Date:</label>
-               <input type="date" class="edit-todo-date" id="todo-date" required />
+               <input type="date" class="edit-todo-date" id="edit-todo-date" required />
                <label for="task-priority">Choose Priority:</label>
-               <select id="task-priority" required>
+               <select id="edit-task-priority" required>
                   <option class="priority-option" selected disabled hidden>
                      No Priority
                   </option>
@@ -167,10 +167,10 @@ Go grocery shopping"
                   </option>
                </select>
                <div class="dialog-buttons">
-                  <button class="submit-todo" type="submit" formmethod="dialog">
+                  <button class="submit-todo" id="submit-edit-todo" type="submit" formmethod="dialog">
                      Edit Todo
                   </button>
-                  <button class="cancel-todo closeDialog">Cancel</button>
+                  <button class="cancel-todo cancel-edit-todo closeDialog">Cancel</button>
                </div>
             </form>
          </div>

@@ -248,6 +248,7 @@ main p {
    user-select: none;
 }
 
+
 .todo-container p:not(.todo-desc) {
    align-self: center;
    padding-right: 20px;
@@ -343,6 +344,7 @@ dialog {
    padding: min(3%, 15px);
 
    #description,
+   #edit-description,
    button,
    label,
    input {
@@ -356,6 +358,7 @@ dialog {
    }
 
    #description,
+   #edit-description,
    input {
       color: var(--secondary-text);
       background-color: inherit;

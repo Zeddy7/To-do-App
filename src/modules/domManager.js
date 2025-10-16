@@ -1,5 +1,4 @@
 import TodoManager from "./todoManager";
-import ProjectImage from "../images/assignment_add_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg";
 import EditImage from "../images/edit.svg";
 import DeleteImage from "../images/delete.svg";
 
@@ -33,21 +32,22 @@ const DomManager = (function () {
 
       projects.forEach((project, index) => {
          const card = document.createElement("div");
-         const newImage = document.createElement("img");
-         newImage.src = ProjectImage;
+         card.classList.add("project");
+         card.dataset.index = index;
 
          const editImage = document.createElement("img");
          editImage.src = EditImage;
 
-         card.classList.add("project");
-         card.dataset.index = index;
+         const deleteImage = document.createElement("img");
+         deleteImage.src = DeleteImage;
 
          card.innerHTML = `
-            <li>${project.getTitle()}</li>`;
+         <li>${project.getTitle()}</li>`;
 
          card.addEventListener("click", e => {
             currentProjectIndex = e.currentTarget.dataset.index;
-            const selectedProject = TodoManager.getProjects()[currentProjectIndex];
+            const selectedProject =
+               TodoManager.getProjects()[currentProjectIndex];
             renderTodos(selectedProject.getTodoList());
          });
 
@@ -56,8 +56,8 @@ const DomManager = (function () {
             myDialog.showModal();
          });
 
-         card.prepend(newImage);
          card.append(editImage);
+         card.append(deleteImage);
          projectContainer.appendChild(card);
       });
    };
@@ -65,7 +65,7 @@ const DomManager = (function () {
    submitTodo.addEventListener("click", event => {
       event.preventDefault();
       if (!todoTitle.value || !dueDate.value || !taskPriority.value) return;
-      
+
       TodoManager.addTodoToProject(
          currentProjectIndex,
          todoTitle.value,
@@ -73,21 +73,38 @@ const DomManager = (function () {
          dueDate.value,
          taskPriority.value
       );
-      
+
       displayTodoForSpecificProject(currentProjectIndex);
       form.reset();
       myDialog.close();
    });
+
+   const editTodoDialog = document.querySelector("#myTodoDialog");
+   const closeEditButton = document.querySelector(".cancel-edit-todo");
+   const submitEditTodo = document.querySelector("#submit-edit-todo");
+   const editTodoTitle = document.querySelector("#edit-todo-title");
+   const editDueDate = document.querySelector("#edit-todo-date");
+   const editDescription = document.querySelector("#edit-description");
+   const editTaskPriority = document.querySelector("#edit-task-priority");
+
+   closeEditButton.addEventListener("click", e => {
+      e.preventDefault();
+      editTodoDialog.close();
+   });
+
+   let currentTodoIndex = 0;
 
    const renderTodos = todos => {
       todoMain.innerHTML = "";
       todos.forEach((todo, index) => {
          const todoContainer = document.createElement("div");
          todoContainer.classList.add("todo-container");
+         todoContainer.dataset.index = index;
+
 
          const newImage = document.createElement("img");
          newImage.src = EditImage;
-         
+
          const deleteImage = document.createElement("img");
          deleteImage.src = DeleteImage;
 
@@ -99,8 +116,15 @@ const DomManager = (function () {
 
          newImage.addEventListener("click", e => {
             e.target;
-            myDialog.showModal();
+            currentTodoIndex =
+               e.target.closest(".todo-container").dataset.index;
+               editTodoTitle.value = todo.getTitle();
+            editDescription.value = todo.getDesc();
+            editDueDate.value = todo.getDate();
+            editTaskPriority.value = todo.getPrio();
+            editTodoDialog.showModal();
          });
+
 
          todoContainer.appendChild(newImage);
          todoContainer.appendChild(deleteImage);
@@ -108,8 +132,28 @@ const DomManager = (function () {
       });
    };
 
-   let currentTodoIndex = 0;
+   submitEditTodo.addEventListener("click", event => {
+      event.preventDefault();
+      if (!editTodoTitle.value || !editDueDate.value || !editTaskPriority.value)
+         return;
 
+      const specificProject = TodoManager.getProjects()[currentProjectIndex];
+      if (specificProject) {
+         const todos = specificProject.getTodoList();
+         const specificTodo = todos[currentTodoIndex];
+         if (specificTodo) {
+            specificTodo.setTitle(editTodoTitle.value);
+            specificTodo.setDesc(editDescription.value);
+            specificTodo.setDate(editDueDate.value);
+            specificTodo.setPrio(editTaskPriority.value);
+         }
+      }
+
+      console.log("Edit Todo functionality to be implemented")
+      displayTodoForSpecificProject(currentProjectIndex);
+      form.reset();
+      editTodoDialog.close();
+   });
 
    const title = document.querySelector("#title");
    const addProjectButton = document.querySelector(".addProject");
