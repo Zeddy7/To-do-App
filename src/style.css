@@ -82,6 +82,10 @@ body {
    fill: var(--active-page);
 }
 
+.active {
+   background-color: var(--active-page);
+}
+
 #sidebar a,
 .add-todo,
 .project,

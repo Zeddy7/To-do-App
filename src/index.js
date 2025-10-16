@@ -13,27 +13,21 @@ toggleButton.addEventListener("click", () => {
    addProjectContent.classList.remove("close-project");
 });
 
+function setActiveItem(selectedElement) {
+   const allItems = document.querySelectorAll(".sides");
 
-// if (checks.checked) {
-//    checks.classList.add("completed-todo");
-// }
+   allItems.forEach(item => {
+      item.classList.remove("active");
+   });
 
-// function toggleSubMenu(button) {
-//    if (!button.nextElementSibling.classList.contains("show")) {
-//       closeSubMenus();
-//    }
+   selectedElement.classList.add("active");
+}
 
-//    button.nextElementSibling.classList.toggle("show");
-//    button.classList.toggle("rotate");
-
-//    if (sidebar.classList.contains("close")) {
-//       sidebar.classList.toggle("close");
-//    }
-// }
-
-// function closeSubMenus() {
-//    Array.from(sidebar.getElementsByClassName("show")).forEach(ul => {
-//       ul.classList.remove("show");
-//       ul.previousElementSibling.classList.remove("rotate");
-//    });
-// }
+document.addEventListener("DOMContentLoaded", () => {
+   const sidebarItems = document.querySelectorAll(".sides");
+   sidebarItems.forEach(item => {
+      item.addEventListener("click", event => {
+         setActiveItem(event.currentTarget);
+      });
+   });
+});

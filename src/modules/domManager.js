@@ -45,6 +45,7 @@ const DomManager = (function () {
       projects.forEach((project, index) => {
          const card = document.createElement("div");
          card.classList.add("project");
+         card.classList.add("sides");
          card.dataset.index = index;
 
          const editImage = document.createElement("img");
@@ -53,10 +54,11 @@ const DomManager = (function () {
          const deleteImage = document.createElement("img");
          deleteImage.src = DeleteImage;
 
-         card.innerHTML = `
-         <li>${project.getTitle()}</li>`;
+         const listProject = document.createElement("li");
+         listProject.textContent = project.getTitle();
 
-         // Delete project
+         listProject.classList.add("sides");
+
          deleteImage.addEventListener("click", e => {
             e.target;
             const projectIndex = e.target.closest(".project").dataset.index;
@@ -82,6 +84,7 @@ const DomManager = (function () {
             editProjectDialog.showModal();
          });
 
+         card.append(listProject);
          card.append(editImage);
          card.append(deleteImage);
          projectContainer.appendChild(card);
