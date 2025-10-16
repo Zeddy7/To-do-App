@@ -53,7 +53,8 @@ const DomManager = (function () {
 
          editImage.addEventListener("click", e => {
             e.stopPropagation();
-            myDialog.showModal();
+            editProjectTitle.value = project.getTitle();
+            editProjectDialog.showModal();
          });
 
          card.append(editImage);
@@ -79,6 +80,31 @@ const DomManager = (function () {
       myDialog.close();
    });
 
+   const editProjectDialog = document.querySelector("#myProjectDialog");
+   const closeProjectEdit = document.querySelector(".cancel-edit-project");
+   const submitEditProject = document.querySelector("#submit-edit-project");
+   const editProjectTitle = document.querySelector("#edit-project-title");
+
+   closeProjectEdit.addEventListener("click", e => {
+      e.preventDefault();
+      editProjectDialog.close();
+   });
+
+   submitEditProject.addEventListener("click", event => {
+      event.preventDefault();
+      if (!editProjectTitle.value) return;
+
+      const specificProject = TodoManager.getProjects()[currentProjectIndex];
+      if (specificProject) {
+         specificProject.setTitle(editProjectTitle.value);
+      }
+      renderProjects(TodoManager.getProjects());
+
+      displayTodoForSpecificProject(currentProjectIndex);
+      form.reset();
+      editProjectDialog.close();
+   });
+
    const editTodoDialog = document.querySelector("#myTodoDialog");
    const closeEditButton = document.querySelector(".cancel-edit-todo");
    const submitEditTodo = document.querySelector("#submit-edit-todo");
@@ -101,7 +127,6 @@ const DomManager = (function () {
          todoContainer.classList.add("todo-container");
          todoContainer.dataset.index = index;
 
-
          const newImage = document.createElement("img");
          newImage.src = EditImage;
 
@@ -118,13 +143,12 @@ const DomManager = (function () {
             e.target;
             currentTodoIndex =
                e.target.closest(".todo-container").dataset.index;
-               editTodoTitle.value = todo.getTitle();
+            editTodoTitle.value = todo.getTitle();
             editDescription.value = todo.getDesc();
             editDueDate.value = todo.getDate();
             editTaskPriority.value = todo.getPrio();
             editTodoDialog.showModal();
          });
-
 
          todoContainer.appendChild(newImage);
          todoContainer.appendChild(deleteImage);
@@ -149,7 +173,6 @@ const DomManager = (function () {
          }
       }
 
-      console.log("Edit Todo functionality to be implemented")
       displayTodoForSpecificProject(currentProjectIndex);
       form.reset();
       editTodoDialog.close();
