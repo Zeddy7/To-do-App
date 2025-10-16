@@ -1,6 +1,7 @@
 import TodoManager from "./todoManager";
 import ProjectImage from "../images/assignment_add_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg";
 import EditImage from "../images/edit.svg";
+import DeleteImage from "../images/delete.svg";
 
 const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
@@ -25,7 +26,6 @@ const DomManager = (function () {
       myDialog.close();
    });
 
-   // Add this variable at the top of your module
    let currentProjectIndex = 0;
 
    const renderProjects = projects => {
@@ -46,7 +46,6 @@ const DomManager = (function () {
             <li>${project.getTitle()}</li>`;
 
          card.addEventListener("click", e => {
-            // Store the index when a project is clicked
             currentProjectIndex = e.currentTarget.dataset.index;
             const selectedProject = TodoManager.getProjects()[currentProjectIndex];
             renderTodos(selectedProject.getTodoList());
@@ -63,7 +62,6 @@ const DomManager = (function () {
       });
    };
 
-   // Move the submit handler outside of renderProjects
    submitTodo.addEventListener("click", event => {
       event.preventDefault();
       if (!todoTitle.value || !dueDate.value || !taskPriority.value) return;
@@ -89,6 +87,9 @@ const DomManager = (function () {
 
          const newImage = document.createElement("img");
          newImage.src = EditImage;
+         
+         const deleteImage = document.createElement("img");
+         deleteImage.src = DeleteImage;
 
          todoContainer.innerHTML = `
          <input type="checkbox" id="item${index}" />
@@ -102,9 +103,13 @@ const DomManager = (function () {
          });
 
          todoContainer.appendChild(newImage);
+         todoContainer.appendChild(deleteImage);
          todoMain.appendChild(todoContainer);
       });
    };
+
+   let currentTodoIndex = 0;
+
 
    const title = document.querySelector("#title");
    const addProjectButton = document.querySelector(".addProject");

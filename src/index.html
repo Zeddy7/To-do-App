@@ -138,6 +138,43 @@ Go grocery shopping"
             </form>
          </div>
       </dialog>
+
+      <dialog id="myTodoDialog">
+         <header>
+            <h2>Edit Todo</h2>
+         </header>
+         <div class="todos-content">
+            <form class="todo-form">
+               <label for="todo-title">Title:</label>
+               <input type="text" class="edit-todo-title" id="todo-title" required />
+               <label for="description">Description:</label>
+               <textarea class="edit-todo-description" id="description" rows="3"></textarea>
+               <label for="todo-date">Due Date:</label>
+               <input type="date" class="edit-todo-date" id="todo-date" required />
+               <label for="task-priority">Choose Priority:</label>
+               <select id="task-priority" required>
+                  <option class="priority-option" selected disabled hidden>
+                     No Priority
+                  </option>
+                  <option class="priority-option" value="Low Priority">
+                     Low Priority
+                  </option>
+                  <option class="priority-option" value="Medium Priority">
+                     Medium Priority
+                  </option>
+                  <option class="priority-option" value="High Priority">
+                     High Priority
+                  </option>
+               </select>
+               <div class="dialog-buttons">
+                  <button class="submit-todo" type="submit" formmethod="dialog">
+                     Edit Todo
+                  </button>
+                  <button class="cancel-todo closeDialog">Cancel</button>
+               </div>
+            </form>
+         </div>
+      </dialog>
       <!-- <script src="./script.js"></script> -->
    </body>
 </html>
