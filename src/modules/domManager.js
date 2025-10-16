@@ -1,5 +1,4 @@
 import TodoManager from "./todoManager";
-import CreateProject from "./project";
 import EditImage from "../images/edit.svg";
 import DeleteImage from "../images/delete.svg";
 
@@ -102,9 +101,15 @@ const DomManager = (function () {
          const deleteImage = document.createElement("img");
          deleteImage.src = DeleteImage;
 
+         let checkbox = document.createElement("input");
+         checkbox.type = "checkbox";
+         checkbox.id = `item${index}`;
+
+         let label = document.createElement("label");
+         label.htmlFor = `item${index}`;
+         label.textContent = `${todo.getTitle()}`;
+
          todoContainer.innerHTML = `
-         <input type="checkbox" id="item${index}" />
-         <label for="item${index}">${todo.getTitle()}</label>
          <p class="todo-desc">${todo.getDesc()}</p>
          <p>${todo.getDate()}</p>`;
 
@@ -112,7 +117,9 @@ const DomManager = (function () {
          deleteImage.addEventListener("click", e => {
             e.target;
             const todoIndex = e.target.closest(".todo-container").dataset.index;
-            TodoManager.getProjects()[currentProjectIndex].removeTodo(todoIndex);
+            TodoManager.getProjects()[currentProjectIndex].removeTodo(
+               todoIndex
+            );
             displayTodoForSpecificProject(currentProjectIndex);
          });
 
@@ -128,6 +135,20 @@ const DomManager = (function () {
             editTodoDialog.showModal();
          });
 
+         let todoCompStatus = todo.getCompStatus();
+
+         checkbox.addEventListener("change", function () {
+            todo.toggleCompStatus();
+            todoContainer.classList.toggle("completed-todo", this.checked);
+         });
+
+         checkbox.checked = todoCompStatus;
+         if (todoCompStatus) {
+            todoContainer.classList.add("completed-todo");
+         }
+
+         todoContainer.prepend(label);
+         todoContainer.prepend(checkbox);
          todoContainer.appendChild(newImage);
          todoContainer.appendChild(deleteImage);
          todoMain.appendChild(todoContainer);
@@ -193,7 +214,11 @@ const DomManager = (function () {
 
       submitEditTodo.addEventListener("click", event => {
          event.preventDefault();
-         if (!editTodoTitle.value || !editDueDate.value || !editTaskPriority.value)
+         if (
+            !editTodoTitle.value ||
+            !editDueDate.value ||
+            !editTaskPriority.value
+         )
             return;
 
          const specificProject = TodoManager.getProjects()[currentProjectIndex];
@@ -256,12 +281,26 @@ const DomManager = (function () {
 
    bindAll();
 
-   const init = () => {
+   // const renderAllTodos = (projects) => {
+   //    projects.forEach(project => {
+   //       let allTodos = project.getTodoList();
+   //       console.log('Todos from project:', project.getTitle());
+   //       console.log('AllTodos:', allTodos);
+   //       renderTodos(allTodos);
+   //    });
+   // }
+
+   const initProjects = () => {
       const projects = TodoManager.getProjects();
       renderProjects(projects);
    };
 
-   return { init, renderProjects, renderTodos };
+   const initTodos = () => {
+      const projects = TodoManager.getProjects();
+      renderAllTodos(projects);
+   };
+
+   return { initProjects, renderProjects, renderTodos, initTodos };
 })();
 
 export default DomManager;

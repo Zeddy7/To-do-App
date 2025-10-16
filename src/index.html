@@ -31,20 +31,6 @@
                </a>
             </li>
             <li>
-               <a>
-                  <img
-                     src="./images/folder_copy_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" />
-                  <span>All Todos</span>
-               </a>
-            </li>
-            <li>
-               <a>
-                  <img
-                     src="./images/checklist_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
-                  <span>Completed</span>
-               </a>
-            </li>
-            <li>
                <button id="open-project" class="dropdown-btn">
                   <img
                      src="./images/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />
@@ -148,9 +134,16 @@ Go grocery shopping"
                <label for="todo-title">Title:</label>
                <input type="text" id="edit-todo-title" required />
                <label for="description">Description:</label>
-               <textarea class="edit-todo-description" id="edit-description" rows="3"></textarea>
+               <textarea
+                  class="edit-todo-description"
+                  id="edit-description"
+                  rows="3"></textarea>
                <label for="todo-date">Due Date:</label>
-               <input type="date" class="edit-todo-date" id="edit-todo-date" required />
+               <input
+                  type="date"
+                  class="edit-todo-date"
+                  id="edit-todo-date"
+                  required />
                <label for="task-priority">Choose Priority:</label>
                <select id="edit-task-priority" required>
                   <option class="priority-option" selected disabled hidden>
@@ -167,16 +160,22 @@ Go grocery shopping"
                   </option>
                </select>
                <div class="dialog-buttons">
-                  <button class="submit-todo" id="submit-edit-todo" type="submit" formmethod="dialog">
+                  <button
+                     class="submit-todo"
+                     id="submit-edit-todo"
+                     type="submit"
+                     formmethod="dialog">
                      Edit Todo
                   </button>
-                  <button class="cancel-todo cancel-edit-todo closeDialog">Cancel</button>
+                  <button class="cancel-todo cancel-edit-todo closeDialog">
+                     Cancel
+                  </button>
                </div>
             </form>
          </div>
       </dialog>
-      
-      <dialog id="myProjectDialog" >
+
+      <dialog id="myProjectDialog">
          <header>
             <h2>Edit Project</h2>
          </header>
@@ -185,10 +184,16 @@ Go grocery shopping"
                <label for="todo-title">Title:</label>
                <input type="text" id="edit-project-title" required />
                <div class="dialog-buttons">
-                  <button class="submit-todo" id="submit-edit-project" type="submit" formmethod="dialog">
+                  <button
+                     class="submit-todo"
+                     id="submit-edit-project"
+                     type="submit"
+                     formmethod="dialog">
                      Edit Project
                   </button>
-                  <button class="cancel-todo cancel-edit-project closeDialog">Cancel</button>
+                  <button class="cancel-todo cancel-edit-project closeDialog">
+                     Cancel
+                  </button>
                </div>
             </form>
          </div>

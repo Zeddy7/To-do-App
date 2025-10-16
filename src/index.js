@@ -1,12 +1,12 @@
 import DomManager from "./modules/domManager";
-// import TodoManager from "./modules/todoManager";
 import "./style.css";
 
-DomManager.init();
+DomManager.initProjects();
 
 const toggleButton = document.getElementById("toggle-btn");
 const sidebar = document.getElementById("sidebar");
 const addProjectContent = document.querySelector(".dialog-content");
+// const checks = document.querySelector(".todo-check");
 
 toggleButton.addEventListener("click", () => {
    sidebar.classList.toggle("close");
@@ -14,6 +14,9 @@ toggleButton.addEventListener("click", () => {
 });
 
 
+// if (checks.checked) {
+//    checks.classList.add("completed-todo");
+// }
 
 // function toggleSubMenu(button) {
 //    if (!button.nextElementSibling.classList.contains("show")) {

@@ -420,3 +420,7 @@ option {
    display: flex;
    gap: 15px;
 }
+
+.completed-todo {
+   text-decoration: line-through;
+}
