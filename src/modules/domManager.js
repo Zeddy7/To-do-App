@@ -14,23 +14,17 @@ const DomManager = (function () {
    const dueDate = document.querySelector("#todo-date");
    const description = document.querySelector("#description");
    const taskPriority = document.querySelector("#task-priority");
+   const form = document.querySelector(".todo-form");
 
    openButton.addEventListener("click", () => {
       myDialog.showModal();
    });
 
-   closeButton.addEventListener("click", () => {
+   closeButton.addEventListener("click", e => {
+      e.preventDefault();
       myDialog.close();
+      console.log(e)
    });
-
-    submitTodo.addEventListener("click", e => {
-            e.preventDefault();
-            if ((!todoTitle.value, !dueDate.value, !taskPriority.value)) return;
-            // project.addNewTodo(todoTitle.value, description.value, dueDate.value, taskPriority.value)
-            TodoManager.addTodoToProject(index, todoTitle.value, description.value, dueDate.value, taskPriority.value)
-            // form.reset();
-            myDialog.close();
-         });
 
    const renderProjects = projects => {
       projectContainer.textContent = "";
@@ -53,14 +47,35 @@ const DomManager = (function () {
             const idx = e.currentTarget.dataset.index;
             const selectedProject = TodoManager.getProjects()[idx];
             renderTodos(selectedProject.getTodoList());
+
+            submitTodo.addEventListener("click", e => {
+               e.preventDefault();
+               if (!todoTitle.value || !dueDate.value || !taskPriority.value)
+                  return;
+               // selectedProject.addNewTodo(todoTitle.value, description.value, dueDate.value, taskPriority.value)
+               const newTodo = TodoManager.getProjects()[idx];
+               newTodo.addNewTodo(
+                  todoTitle.value,
+                  description.value,
+                  dueDate.value,
+                  taskPriority.value,
+                  false
+               );
+               // todoTitle.value = "";
+               // description.value = "";
+               // dueDate.value = "";
+               // taskPriority.reset();
+               const projects = TodoManager.getProjects();
+               renderProjects(projects);
+               form.reset();
+               myDialog.close();
+            });
          });
 
          editImage.addEventListener("click", e => {
-            e.target;
+            e.stopPropagation();
             myDialog.showModal();
          });
-
-        
 
          card.prepend(newImage);
          card.append(editImage);
@@ -69,7 +84,7 @@ const DomManager = (function () {
    };
 
    const renderTodos = todos => {
-      todoMain.textContent = "";
+      todoMain.innerHTML = "";
       todos.forEach((todo, index) => {
          const todoContainer = document.createElement("div");
          todoContainer.classList.add("todo-container");
@@ -122,40 +137,18 @@ const DomManager = (function () {
       addProjectContent.classList.toggle("close-project");
    });
 
-   //    const myDialog = document.getElementById("myDialog");
-   //    const openButton = document.getElementById("openDialog");
-   //    const closeButton = document.getElementById("closeDialog");
-   //    const addProjectButton = document.querySelector(".addProject");
-   //    const title = document.querySelector("#title");
-   //    const form = document.querySelector("form");
-
-   //    openButton.addEventListener("click", () => {
-   //       myDialog.showModal();
-   //    });
-   //    closeButton.addEventListener("click", () => {
-   //       myDialog.close();
-   //    });
-   //    addProjectButton.addEventListener("click", e => {
-   //       if (!title.value) return e.preventDefault();
-   //       TodoManager.addProject(title.value);
-   //       const projects = TodoManager.getProjects();
-   //       renderProjects(projects);
-   //       title.value = '';
-   //       myDialog.close();
-   //    });
+   function displayTodoForSpecificProject(index) {
+      const specificProject = TodoManager.getProjects()[index];
+      if (specificProject) {
+         const todos = specificProject.getTodoList();
+         renderTodos(todos);
+      }
+   }
 
    const init = () => {
       const projects = TodoManager.getProjects();
       renderProjects(projects);
    };
-//    document.addEventListener("DOMContentLoaded", () => {
-//    // const init = () => {
-//       const projects = TodoManager.getProjects();
-//       DomManager.renderProjects(projects);
-//       // renderProjects(projects);
-//    // };
-// });
-   
 
    return { init, renderProjects, renderTodos };
 })();

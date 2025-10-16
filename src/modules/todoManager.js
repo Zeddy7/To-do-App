@@ -52,7 +52,7 @@ const TodoManager = (function () {
       const specificProject = projectList[index];
       if (specificProject) {
          specificProject.addNewTodo(title, description, dueDate, priority);
-         saveToStorage()
+         // saveToStorage()
       }
    }
 
