@@ -112,15 +112,8 @@ const DomManager = (function () {
          deleteImage.addEventListener("click", e => {
             e.target;
             const todoIndex = e.target.closest(".todo-container").dataset.index;
-            // CreateProject.removeTodo(todoIndex);
-            // renderProjects(TodoManager.getProjects());
-            // todoMain.innerHTML = "";
-            // const projectIndex = e.target.closest(".project").dataset.index;
             TodoManager.getProjects()[currentProjectIndex].removeTodo(todoIndex);
-            //
-            // TodoManager.removeProject(projectIndex);
-            // renderProjects(TodoManager.getProjects());
-            // todoMain.innerHTML = "";
+            displayTodoForSpecificProject(currentProjectIndex);
          });
 
          // Edit todo (open dialog and populate)
