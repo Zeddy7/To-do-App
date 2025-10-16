@@ -1,4 +1,5 @@
 import TodoManager from "./todoManager";
+import CreateProject from "./project";
 import EditImage from "../images/edit.svg";
 import DeleteImage from "../images/delete.svg";
 
@@ -52,8 +53,6 @@ const DomManager = (function () {
             renderProjects(TodoManager.getProjects());
             todoMain.innerHTML = "";
          });
-
-         // if (projectDeleted)          return;
 
          card.addEventListener("click", e => {
             currentProjectIndex = e.currentTarget.dataset.index;
@@ -151,6 +150,15 @@ const DomManager = (function () {
          <label for="item${index}">${todo.getTitle()}</label>
          <p class="todo-desc">${todo.getDesc()}</p>
          <p>${todo.getDate()}</p>`;
+
+         // deleteImage.addEventListener("click", e => {
+         //    e.target;
+         //    const todoIndex = e.target.closest(".todo-container").dataset.index;
+         //    CreateProject.removeTodo(todoIndex);
+         //    renderProjects(TodoManager.getProjects());
+         //    // todoMain.innerHTML = ""; 
+            
+         // });
 
          newImage.addEventListener("click", e => {
             e.target;

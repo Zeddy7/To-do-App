@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+
 :root {
    --primary-color: #212121;
    --secondary-color: #2f2f2f;
@@ -18,6 +19,7 @@
    padding: 0;
    font-family: "Nunito Sans", sans-serif, cursive, system-ui, -apple-system,
       "Segoe UI";
+   box-sizing: border-box;
 }
 
 html {
@@ -35,7 +37,6 @@ body {
 }
 
 #sidebar {
-   box-sizing: border-box;
    height: 100vh;
    width: 250px;
    padding: 5px 1em;
@@ -43,19 +44,20 @@ body {
    border-right: 1px solid var(--tertiary-color);
    position: sticky;
    top: 0;
-   align-self: start-start;
+   align-self: start;
    transition: 300ms ease-in-out;
    overflow: hidden;
-   text-wrap: nowrap;
+   white-space: nowrap;
 }
 
 #sidebar.close {
    padding: 5px;
    width: 60px;
+}
 
-   .project {
-      display: none;
-   }
+#sidebar.close .project {
+   display: none;
+   white-space: nowrap;
 }
 
 #sidebar ul {
@@ -63,21 +65,21 @@ body {
 }
 
 #sidebar > ul > li:first-child {
-   list-style: none;
    display: flex;
    justify-content: flex-end;
    margin-bottom: 16px;
+}
 
-   .logo {
-      font-weight: 600;
-   }
+#sidebar > ul > li:first-child .logo {
+   font-weight: 600;
 }
 
 #sidebar ul li.active a {
    background-color: var(--active-page);
-   img {
-      fill: var(--active-page);
-   }
+}
+
+#sidebar ul li.active a img {
+   fill: var(--active-page);
 }
 
 #sidebar a,
@@ -92,15 +94,6 @@ body {
    display: flex;
    align-items: center;
    gap: 1.2em;
-}
-
-.dropdown-btn {
-   width: 100%;
-   text-align: left;
-   background: none;
-   border: none;
-   font: inherit;
-   cursor: pointer;
 }
 
 #sidebar img {
@@ -118,6 +111,15 @@ body {
 .project:hover,
 #sidebar .dropdown-btn:hover {
    background-color: var(--secondary-color);
+}
+
+.dropdown-btn {
+   width: 100%;
+   text-align: left;
+   background: none;
+   border: none;
+   font: inherit;
+   cursor: pointer;
 }
 
 .project {
@@ -160,75 +162,11 @@ main p {
    padding: min(0.7em, 3.5%);
    display: flex;
    gap: 2em;
-
-   h2,
-   p {
-      margin-top: 0.7em;
-   }
 }
 
-.dialog-content {
-   display: none;
-   height: 55%;
-   padding: 15px;
-
-   button {
-      font-size: 12px;
-      font-weight: 600;
-      background-color: var(--tertiary-color);
-      color: var(--secondary-text);
-      width: 80px;
-      padding: 7px;
-      border-radius: 5px;
-      border: 0;
-      cursor: pointer;
-   }
-
-   .cancel {
-      background-color: var(--red-buttons);
-   }
-
-   .add {
-      background-color: var(--green-buttons);
-   }
-}
-
-.close-project {
-   display: block;
-}
-
-.proj-btn {
-   display: flex;
-   gap: 15px;
-}
-
-#title {
-   width: 100%;
-   height: 25px;
-   margin-bottom: 10px;
-   border-radius: 10px;
-   outline: none;
-   padding: 0 10px;
-}
-
-#title:focus {
-   border: 1px solid rgb(0, 0, 0);
-   outline: none;
-}
-
-.add-todo-div {
-   display: flex;
-   justify-content: center;
-   margin-bottom: 20px;
-}
-
-.add-todo {
-   font-size: 25px;
-   font-weight: bold;
-   text-align: center;
-   background: none;
-   border: 2px solid var(--active-page);
-   cursor: pointer;
+.todo-container h2,
+.todo-container p {
+   margin-top: 0.7em;
 }
 
 .todo-container input[type="checkbox"] {
@@ -246,18 +184,6 @@ main p {
    cursor: pointer;
    font-size: 18px;
    user-select: none;
-}
-
-
-.todo-container p:not(.todo-desc) {
-   align-self: center;
-   padding-right: 20px;
-   font-size: 18px;
-}
-
-.todo-desc {
-   flex: 1;
-   font-size: smaller;
 }
 
 .todo-container label::before {
@@ -294,9 +220,160 @@ main p {
    transform: rotate(45deg);
 }
 
+.todo-container p:not(.todo-desc) {
+   align-self: center;
+   padding-right: 20px;
+   font-size: 18px;
+}
+
+.todo-desc {
+   flex: 1;
+   font-size: smaller;
+}
+
+.dialog-content {
+   display: none;
+   height: 55%;
+   padding: 15px;
+}
+
+.dialog-content button {
+   font-size: 12px;
+   font-weight: 600;
+   background-color: var(--tertiary-color);
+   color: var(--secondary-text);
+   width: 80px;
+   padding: 7px;
+   border-radius: 5px;
+   border: 0;
+   cursor: pointer;
+}
+
+.dialog-content .cancel {
+   background-color: var(--red-buttons);
+}
+
+.dialog-content .add {
+   background-color: var(--green-buttons);
+}
+
+dialog {
+   background-color: var(--tertiary-color);
+   color: white;
+   border-radius: 20px;
+   border: 0;
+   margin: 7% auto;
+   width: 20%;
+   padding: min(3%, 15px);
+}
+
+dialog #description,
+dialog #edit-description,
+dialog input,
+dialog button,
+dialog label {
+   display: block;
+   font-size: 100%;
+   margin: 0;
+   box-sizing: border-box;
+   padding: 5px;
+   height: auto;
+   outline: none;
+}
+
+dialog #description,
+dialog #edit-description,
+dialog input {
+   color: var(--secondary-text);
+   background-color: inherit;
+   width: 100%;
+   border: 2px solid black;
+   margin-bottom: 20px;
+   resize: none;
+}
+
+dialog input[type="datetime-local"] {
+   box-shadow: inset 1px 1px 3px #cccccc;
+   border-radius: 5px;
+   color: white;
+}
+
+dialog > header {
+   display: flex;
+   justify-content: space-between;
+}
+
+dialog > header > h2 {
+   padding: 20px 20px 0;
+   flex: 1;
+   text-align: center;
+   margin-bottom: 20px;
+}
+
+dialog > header > button {
+   border: 1px solid black;
+   height: 20px;
+   width: 20px;
+   border-radius: 60px;
+   background-color: var(--secondary-text);
+   cursor: pointer;
+}
+
+.dialog-buttons {
+   display: flex;
+   gap: 10px;
+}
+
+.dialog-buttons button {
+   font-size: 18px;
+   font-weight: bold;
+   color: var(--secondary-text);
+   width: 40%;
+   border-radius: 5px;
+   border: 0;
+   cursor: pointer;
+}
+
+.dialog-buttons .cancel-todo {
+   background-color: var(--red-buttons);
+}
+
+.dialog-buttons .submit-todo {
+   background-color: var(--green-buttons);
+}
+
+#title {
+   width: 100%;
+   height: 25px;
+   margin-bottom: 10px;
+   border-radius: 10px;
+   outline: none;
+   padding: 0 10px;
+}
+
+#title:focus {
+   border: 1px solid rgb(0, 0, 0);
+   outline: none;
+}
+
+.add-todo-div {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 20px;
+}
+
+.add-todo {
+   font-size: 25px;
+   font-weight: bold;
+   text-align: center;
+   background: none;
+   border: 2px solid var(--active-page);
+   cursor: pointer;
+}
+
 select,
 ::picker(select) {
-   appearance: base-select;
+   appearance: none;
    background-color: var(--tertiary-color);
    border-radius: 10px;
    border: 2px solid black;
@@ -329,101 +406,17 @@ option[value="Medium Priority"] {
 option[value="High Priority"] {
    background-color: var(--red-buttons);
 }
+
 option {
    color: black;
    width: 100%;
 }
 
-dialog {
-   background-color: var(--tertiary-color);
-   color: white;
-   border-radius: 20px;
-   border: 0;
-   margin: 7% auto;
-   width: 20%;
-   padding: min(3%, 15px);
-
-   #description,
-   #edit-description,
-   button,
-   label,
-   input {
-      display: block;
-      font-size: 100%;
-      margin: 0;
-      box-sizing: border-box;
-      padding: 5px;
-      height: auto;
-      outline: none;
-   }
-
-   #description,
-   #edit-description,
-   input {
-      color: var(--secondary-text);
-      background-color: inherit;
-      width: 100%;
-      border: 2px solid black;
-      margin-bottom: 20px;
-      resize: none;
-   }
-
-   input[type="datetime-local"] {
-      box-shadow: inset 1px 1px 3px #cccccc;
-      border-radius: 5px;
-      color: white;
-   }
-
-   button {
-      color: #171717;
-      width: 35%;
-      margin: 0 auto;
-   }
-
-   *{
-      overflow: hidden;
-   }
+.close-project {
+   display: block;
 }
 
-dialog > header > h2 {
-   padding: 20px 20px 0;
-   flex: 1;
-   text-align: center;
-   margin-bottom: 20px;
-}
-
-dialog > header > button {
-   border: 1px solid black;
-   height: 20px;
-   width: 20px;
-   border-radius: 60px;
-   background-color: var(--secondary-text);
-   cursor: pointer;
-}
-
-dialog > header {
+.proj-btn {
    display: flex;
-   justify-content: space-between;
-}
-
-.dialog-buttons {
-   display: flex;
-
-   button {
-      font-size: 18px;
-      font-weight: bold;
-      color: var(--secondary-text);
-      width: 40%;
-      border-radius: 5px;
-      border: 0;
-      cursor: pointer;
-   }
-
-   .cancel-todo {
-      background-color: var(--red-buttons);
-   }
-
-   .submit-todo {
-      background-color: var(--green-buttons);
-   }
+   gap: 15px;
 }

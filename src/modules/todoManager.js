@@ -67,19 +67,19 @@ const TodoManager = (function () {
          "Build the UI",
          "Implement the DOM manipulation to render projects and todos.",
          "2025-10-17",
-         "High"
+         "High Priority"
       );
       defaultProject.addNewTodo(
          "Test localStorage",
          "Add some test data and verify that it persists after a page refresh.",
          "2025-10-18",
-         "Medium"
+         "Medium Priority"
       );
       defaultProject.addNewTodo(
          "Create a README.md file",
          "",
          "2025-10-18",
-         "Medium"
+         "Medium Priority"
       );
    }
 
