@@ -26,6 +26,7 @@ const DomManager = (function () {
    });
 
    let currentProjectIndex = 0;
+   // let projectDeleted = false;
 
    const renderProjects = projects => {
       projectContainer.textContent = "";
@@ -44,15 +45,27 @@ const DomManager = (function () {
          card.innerHTML = `
          <li>${project.getTitle()}</li>`;
 
+         deleteImage.addEventListener("click", e => {
+            e.target;
+            const projectIndex = e.target.closest(".project").dataset.index;
+            TodoManager.removeProject(projectIndex);
+            renderProjects(TodoManager.getProjects());
+            todoMain.innerHTML = "";
+         });
+
+         // if (projectDeleted)          return;
+
          card.addEventListener("click", e => {
             currentProjectIndex = e.currentTarget.dataset.index;
             const selectedProject =
                TodoManager.getProjects()[currentProjectIndex];
+
+            if (!selectedProject) return;
             renderTodos(selectedProject.getTodoList());
          });
 
          editImage.addEventListener("click", e => {
-            e.stopPropagation();
+            // e.stopPropagation();
             editProjectTitle.value = project.getTitle();
             editProjectDialog.showModal();
          });

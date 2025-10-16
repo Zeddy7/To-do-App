@@ -45,6 +45,12 @@ const TodoManager = (function () {
       return newProject;
    };
 
+   const removeProject = index => {
+      projectList.splice(index, 1);
+      saveToStorage()
+   };
+
+
    const getProjects = () => projectList;
 
    function addTodoToProject(index, title, description, dueDate, priority) {
@@ -85,7 +91,7 @@ const TodoManager = (function () {
       }
    })();
 
-   return { addProject, getProjects, addTodoToProject };
+   return { addProject, getProjects, addTodoToProject, removeProject };
 })();
 
 export default TodoManager;
