@@ -7,12 +7,21 @@ const toggleButton = document.getElementById("toggle-btn");
 const sidebar = document.getElementById("sidebar");
 const addProjectContent = document.querySelector(".dialog-content");
 const allTodos = document.querySelector(".all-todos");
-const completedTodos = document.querySelector(".completed-todos");
 const todayTodos = document.querySelector(".today");
 const thisWeekTodos = document.querySelector(".this-week");
+const todoMain = document.querySelector(".todo-content");
 
 allTodos.addEventListener("click", () => {
    DomManager.initTodos();
+})
+
+todayTodos.addEventListener("click", () => {
+   todoMain.innerHTML = "";
+   DomManager.initTodayTodos();
+})
+
+thisWeekTodos.addEventListener("click", () => {
+   DomManager.initWeekTodos();
 })
 
 toggleButton.addEventListener("click", () => {

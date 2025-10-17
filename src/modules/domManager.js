@@ -2,6 +2,7 @@ import TodoManager from "./todoManager";
 import EditImage from "../images/edit.svg";
 import DeleteImage from "../images/delete.svg";
 import { isToday } from 'date-fns';
+import { isSameWeek } from 'date-fns';
 
 const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
@@ -48,6 +49,15 @@ const DomManager = (function () {
          allTodos = allTodos.concat(project.getTodoList());
       });
       renderTodos(allTodos);
+   };
+
+   const initTodayTodos = () => {
+      todoMain.innerHTML = "";
+      renderTodos(todayTodos);
+   };
+
+   const initWeekTodos = () => {
+      renderTodos(thisWeekTodos);
    };
 
    const renderProjects = projects => {
@@ -151,6 +161,10 @@ const DomManager = (function () {
 
          if (isToday(new Date(todo.getDate()))) {
             todayTodos.push(todo);
+         }
+
+         if (isSameWeek(new Date(todo.getDate()))) {
+            thisWeekTodos.push(todo);
          }
 
          if (todo.getPrio() === "High Priority") {
@@ -317,7 +331,7 @@ const DomManager = (function () {
       renderAllTodos(projects);
    };
 
-   return { initProjects, renderProjects, renderTodos, initTodos };
+   return { initProjects, renderProjects, renderTodos, initTodos, initTodayTodos, initWeekTodos};
 })();
 
 export default DomManager;
