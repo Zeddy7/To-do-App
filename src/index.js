@@ -16,9 +16,6 @@ allTodos.addEventListener("click", () => {
 })
 
 todayTodos.addEventListener("click", (e) => {
-   if (e.currentTarget.classList.contains("active")) {
-      return;
-   }
    DomManager.initTodayTodos();
 })
 

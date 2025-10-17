@@ -43,10 +43,15 @@ const DomManager = (function () {
    let currentTodoIndex = 0;
    let todayTodos = [];
    let thisWeekTodos = [];
+   let allTodos = [];
+
+   // Add a new variable to track current view
+   let currentView = 'project'; // Can be 'project', 'all', 'today', or 'week'
 
    const renderAllTodos = projects => {
+      currentView = 'all';
       addTodoButton.style.display = "none";
-      let allTodos = [];
+      allTodos = [];
       projects.forEach(project => {
          allTodos = allTodos.concat(project.getTodoList());
       });
@@ -54,6 +59,7 @@ const DomManager = (function () {
    };
 
    const initTodayTodos = () => {
+      currentView = 'today';
       todayTodos = [];
 
       const projects = TodoManager.getProjects();
@@ -71,6 +77,7 @@ const DomManager = (function () {
    };
 
    const initWeekTodos = () => {
+      currentView = 'week';
       thisWeekTodos = [];
 
       // Get all todos from all projects
@@ -175,7 +182,9 @@ const DomManager = (function () {
             TodoManager.getProjects()[currentProjectIndex].removeTodo(
                todoIndex
             );
+            // initTodos();
             displayTodoForSpecificProject(currentProjectIndex);
+            displayTodoForSpecificProject(allTodos);
          });
 
          // Edit todo (open dialog and populate)
@@ -248,7 +257,7 @@ const DomManager = (function () {
             dueDate.value,
             taskPriority.value
          );
-
+         // initTodos();
          displayTodoForSpecificProject(currentProjectIndex);
          form.reset();
          myDialog.close();
@@ -304,7 +313,21 @@ const DomManager = (function () {
             }
          }
 
-         displayTodoForSpecificProject(currentProjectIndex);
+         // Update display based on current view
+         switch(currentView) {
+            case 'all':
+               initTodos();
+               break;
+            case 'today':
+               initTodayTodos();
+               break;
+            case 'week':
+               initWeekTodos();
+               break;
+            default:
+               displayTodoForSpecificProject(currentProjectIndex);
+         }
+
          form.reset();
          editTodoDialog.close();
       });
