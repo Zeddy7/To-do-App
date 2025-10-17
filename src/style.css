@@ -266,8 +266,8 @@ dialog {
    color: white;
    border-radius: 20px;
    border: 0;
-   margin: 7% auto;
-   width: 20%;
+   margin: 2% auto;
+   width: 30%;
    padding: min(3%, 15px);
 }
 

@@ -16,6 +16,7 @@ const DomManager = (function () {
    const dueDate = document.querySelector("#todo-date");
    const description = document.querySelector("#description");
    const taskPriority = document.querySelector("#task-priority");
+   const todoProject = document.querySelector("#todo-project");
    const form = document.querySelector(".todo-form");
 
    const editProjectDialog = document.querySelector("#myProjectDialog");
@@ -41,9 +42,11 @@ const DomManager = (function () {
 
    let currentProjectIndex = 0;
    let currentTodoIndex = 0;
+   let specificProject = todoProject.value;
    let todayTodos = [];
    let thisWeekTodos = [];
    let allTodos = [];
+   let displayTrue = false;
 
    let currentView = "project";
 
@@ -112,6 +115,14 @@ const DomManager = (function () {
          listProject.textContent = project.getTitle();
 
          listProject.classList.add("sides");
+
+         if (
+            ![...todoProject.options].some(
+               option => option.textContent === project.getTitle()
+            )
+         ) {
+            todoProject.innerHTML += `<option class="project-option">${project.getTitle()}</option>`;
+         }
 
          deleteImage.addEventListener("click", e => {
             e.target;
@@ -240,10 +251,10 @@ const DomManager = (function () {
             todoContainer.classList.add("completed-todo");
          }
 
-         if (currentView === "project") {
+         // if (currentView === "project") {
             todoContainer.appendChild(newImage);
             todoContainer.appendChild(deleteImage);
-         }
+         // }
 
          todoContainer.prepend(label);
          todoContainer.prepend(checkbox);
@@ -266,6 +277,14 @@ const DomManager = (function () {
          event.preventDefault();
          if (!todoTitle.value || !dueDate.value || !taskPriority.value) return;
 
+         specificProject = todoProject.value;
+
+         TodoManager.getProjects().forEach(project => {
+            if (project.getTitle() === specificProject) {
+               currentProjectIndex = TodoManager.getProjects().indexOf(project);
+            }
+         });
+         
          TodoManager.addTodoToProject(
             currentProjectIndex,
             todoTitle.value,
@@ -273,8 +292,11 @@ const DomManager = (function () {
             dueDate.value,
             taskPriority.value
          );
-         // initTodos();
-         displayTodoForSpecificProject(currentProjectIndex);
+
+         if (displayTrue) {
+            displayTodoForSpecificProject(currentProjectIndex);
+            displayTrue = false;
+         }
          form.reset();
          myDialog.close();
       });
