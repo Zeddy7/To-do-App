@@ -267,7 +267,8 @@ dialog {
    border-radius: 20px;
    border: 0;
    margin: 7% auto;
-   width: 20%;
+   width: 30%;
+   overflow: hidden;
    padding: min(3%, 15px);
 }
 
