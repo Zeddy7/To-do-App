@@ -1,8 +1,8 @@
 import TodoManager from "./todoManager";
 import EditImage from "../images/edit.svg";
 import DeleteImage from "../images/delete.svg";
-import { isToday } from 'date-fns';
-import { isSameWeek } from 'date-fns';
+import { isToday } from "date-fns";
+import { isSameWeek } from "date-fns";
 
 const DomManager = (function () {
    const projectContainer = document.querySelector(".project-container");
@@ -37,13 +37,15 @@ const DomManager = (function () {
    const openProject = document.getElementById("open-project");
    const addProjectContent = document.querySelector(".dialog-content");
    const closeProjectContent = document.querySelector(".cancel-project");
+   const addTodoButton = document.querySelector(".add-todo-div");
 
    let currentProjectIndex = 0;
    let currentTodoIndex = 0;
    let todayTodos = [];
    let thisWeekTodos = [];
 
-   const renderAllTodos = (projects) => {
+   const renderAllTodos = projects => {
+      addTodoButton.style.display = "none";
       let allTodos = [];
       projects.forEach(project => {
          allTodos = allTodos.concat(project.getTodoList());
@@ -52,11 +54,37 @@ const DomManager = (function () {
    };
 
    const initTodayTodos = () => {
-      todoMain.innerHTML = "";
+      todayTodos = [];
+
+      const projects = TodoManager.getProjects();
+      projects.forEach(project => {
+         const todos = project.getTodoList();
+         todos.forEach(todo => {
+            if (isToday(new Date(todo.getDate()), new Date())) {
+               todayTodos.push(todo);
+            }
+         });
+      });
+
+      addTodoButton.style.display = "none";
       renderTodos(todayTodos);
    };
 
    const initWeekTodos = () => {
+      thisWeekTodos = [];
+
+      // Get all todos from all projects
+      const projects = TodoManager.getProjects();
+      projects.forEach(project => {
+         const todos = project.getTodoList();
+         todos.forEach(todo => {
+            if (isSameWeek(new Date(todo.getDate()), new Date())) {
+               thisWeekTodos.push(todo);
+            }
+         });
+      });
+
+      addTodoButton.style.display = "none";
       renderTodos(thisWeekTodos);
    };
 
@@ -90,6 +118,8 @@ const DomManager = (function () {
 
          // Select project
          card.addEventListener("click", e => {
+            addTodoButton.style.display = "flex";
+
             currentProjectIndex = e.currentTarget.dataset.index;
             const selectedProject =
                TodoManager.getProjects()[currentProjectIndex];
@@ -113,7 +143,8 @@ const DomManager = (function () {
    };
 
    const renderTodos = todos => {
-      todoMain.innerHTML = "";
+      todoMain.textContent = "";
+
       todos.forEach((todo, index) => {
          const todoContainer = document.createElement("div");
          todoContainer.classList.add("todo-container");
@@ -331,7 +362,14 @@ const DomManager = (function () {
       renderAllTodos(projects);
    };
 
-   return { initProjects, renderProjects, renderTodos, initTodos, initTodayTodos, initWeekTodos};
+   return {
+      initProjects,
+      renderProjects,
+      renderTodos,
+      initTodos,
+      initTodayTodos,
+      initWeekTodos,
+   };
 })();
 
 export default DomManager;

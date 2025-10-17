@@ -2,6 +2,7 @@ import DomManager from "./modules/domManager";
 import "./style.css";
 
 DomManager.initProjects();
+DomManager.initTodos();
 
 const toggleButton = document.getElementById("toggle-btn");
 const sidebar = document.getElementById("sidebar");
@@ -9,14 +10,15 @@ const addProjectContent = document.querySelector(".dialog-content");
 const allTodos = document.querySelector(".all-todos");
 const todayTodos = document.querySelector(".today");
 const thisWeekTodos = document.querySelector(".this-week");
-const todoMain = document.querySelector(".todo-content");
 
 allTodos.addEventListener("click", () => {
    DomManager.initTodos();
 })
 
-todayTodos.addEventListener("click", () => {
-   todoMain.innerHTML = "";
+todayTodos.addEventListener("click", (e) => {
+   if (e.currentTarget.classList.contains("active")) {
+      return;
+   }
    DomManager.initTodayTodos();
 })
 
@@ -39,7 +41,7 @@ function setActiveItem(selectedElement) {
    selectedElement.classList.add("active");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("click", () => {
    const sidebarItems = document.querySelectorAll(".sides");
    sidebarItems.forEach(item => {
       item.addEventListener("click", event => {
