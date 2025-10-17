@@ -45,28 +45,27 @@ const DomManager = (function () {
    let thisWeekTodos = [];
    let allTodos = [];
 
-   // Add a new variable to track current view
-   let currentView = 'project'; // Can be 'project', 'all', 'today', or 'week'
+   let currentView = "project";
 
    const renderAllTodos = projects => {
-      currentView = 'all';
-      addTodoButton.style.display = "none";
+      currentView = "all";
       allTodos = [];
       projects.forEach(project => {
          allTodos = allTodos.concat(project.getTodoList());
       });
+      addTodoButton.style.display = "none";
       renderTodos(allTodos);
    };
 
    const initTodayTodos = () => {
-      currentView = 'today';
+      currentView = "today";
       todayTodos = [];
 
       const projects = TodoManager.getProjects();
       projects.forEach(project => {
          const todos = project.getTodoList();
          todos.forEach(todo => {
-            if (isToday(new Date(todo.getDate()), new Date())) {
+            if (isToday(new Date(todo.getDate()))) {
                todayTodos.push(todo);
             }
          });
@@ -77,10 +76,9 @@ const DomManager = (function () {
    };
 
    const initWeekTodos = () => {
-      currentView = 'week';
+      currentView = "week";
       thisWeekTodos = [];
 
-      // Get all todos from all projects
       const projects = TodoManager.getProjects();
       projects.forEach(project => {
          const todos = project.getTodoList();
@@ -126,6 +124,7 @@ const DomManager = (function () {
          // Select project
          card.addEventListener("click", e => {
             addTodoButton.style.display = "flex";
+            currentView = "project";
 
             currentProjectIndex = e.currentTarget.dataset.index;
             const selectedProject =
@@ -158,9 +157,11 @@ const DomManager = (function () {
          todoContainer.dataset.index = index;
 
          const newImage = document.createElement("img");
+         newImage.classList.add("edit-btn");
          newImage.src = EditImage;
 
          const deleteImage = document.createElement("img");
+         deleteImage.classList.add("delete-btn");
          deleteImage.src = DeleteImage;
 
          let checkbox = document.createElement("input");
@@ -182,9 +183,21 @@ const DomManager = (function () {
             TodoManager.getProjects()[currentProjectIndex].removeTodo(
                todoIndex
             );
-            // initTodos();
-            displayTodoForSpecificProject(currentProjectIndex);
-            displayTodoForSpecificProject(allTodos);
+
+            // Update display based on current view
+            switch (currentView) {
+               case "all":
+                  initTodos();
+                  break;
+               case "today":
+                  initTodayTodos();
+                  break;
+               case "week":
+                  initWeekTodos();
+                  break;
+               default:
+                  displayTodoForSpecificProject(currentProjectIndex);
+            }
          });
 
          // Edit todo (open dialog and populate)
@@ -227,10 +240,13 @@ const DomManager = (function () {
             todoContainer.classList.add("completed-todo");
          }
 
+         if (currentView === "project") {
+            todoContainer.appendChild(newImage);
+            todoContainer.appendChild(deleteImage);
+         }
+
          todoContainer.prepend(label);
          todoContainer.prepend(checkbox);
-         todoContainer.appendChild(newImage);
-         todoContainer.appendChild(deleteImage);
          todoMain.appendChild(todoContainer);
       });
    };
@@ -314,14 +330,14 @@ const DomManager = (function () {
          }
 
          // Update display based on current view
-         switch(currentView) {
-            case 'all':
+         switch (currentView) {
+            case "all":
                initTodos();
                break;
-            case 'today':
+            case "today":
                initTodayTodos();
                break;
-            case 'week':
+            case "week":
                initWeekTodos();
                break;
             default:

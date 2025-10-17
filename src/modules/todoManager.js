@@ -54,11 +54,9 @@ const TodoManager = (function () {
    const getProjects = () => projectList;
 
    function addTodoToProject(index, title, description, dueDate, priority) {
-      // const chosenProject = index;
       const specificProject = projectList[index];
       if (specificProject) {
          specificProject.addNewTodo(title, description, dueDate, priority);
-         // saveToStorage()
       }
    }
 
